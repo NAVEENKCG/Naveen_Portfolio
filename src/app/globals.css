@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-base: #080808;
+  --bg-surface: #111111;
+  --bg-elevated: #1a1a1a;
+  --accent: #ff4d00;
+  --accent-lime: #c8ff00;
+  --text-primary: #f0ece4;
+  --text-muted: #666666;
+  --border: rgba(255, 255, 255, 0.08);
+  --glass: rgba(255, 255, 255, 0.04);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+
+/* ── Base Reset ── */
+* {
+  cursor: none;
+}
+
+html {
+  scroll-behavior: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: var(--bg-base);
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent);
+  color: #000;
+}
+
+a,
+button {
+  cursor: none;
+}
+
+/* ── Skip to content (a11y) ── */
+.skip-to-content {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--accent);
+  color: #000;
+}
+
+.skip-to-content:focus {
+  left: 0;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* ── Film Grain filter (hidden SVG) ── */
+#grain-filter {
+  position: fixed;
+  width: 0;
+  height: 0;
+}
+
+/* ── Glass card base ── */
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
+  border-radius: 1rem;
+  position: relative;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(200px at var(--mouse-x) var(--mouse-y),
+      rgba(255, 255, 255, 0.06),
+      transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.glass-card:hover::before {
+  opacity: 1;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* ── Marquee ── */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+
+.pause-on-hover:hover .marquee-track {
+  animation-play-state: paused !important;
+}
+
+/* ── Text clip gradient ── */
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent), var(--accent-lime));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Rotating text 3D effect ── */
+.slide-text-wrap {
+  perspective: 82.5rem;
+  overflow: hidden;
+  height: 1.1em;
+}
+
+.slide-text-item {
+  backface-visibility: hidden;
+  transform-origin: center center -0.26em;
+  display: block;
+}
+
+/* ── Responsive cursor hide on mobile ── */
+@media (max-width: 768px) {
+  * {
+    cursor: auto !important;
+  }
+
+  .cursor-dot,
+  .cursor-ring {
+    display: none !important;
+  }
+}
+
+/* ── Word reveal clip ── */
+.word-clip {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.word-clip span {
+  display: inline-block;
+}
