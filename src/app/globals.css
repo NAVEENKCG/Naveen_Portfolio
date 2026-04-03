@@ -2,10 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ════════════════════════════════════════════
+   DESIGN TOKENS
+   ════════════════════════════════════════════ */
 :root {
-  --bg-base: #080808;
-  --bg-surface: #111111;
-  --bg-elevated: #1a1a1a;
+  --bg-base: #050A18;
+  --bg-surface: #0D1526;
+  --bg-elevated: #152035;
   --accent: #ff4d00;
   --accent-lime: #c8ff00;
   --text-primary: #f0ece4;
@@ -17,7 +20,20 @@
   --mouse-y: 50%;
 }
 
-/* ── Base Reset ── */
+/* ════════════════════════════════════════════
+   PERFORMANCE LAYERS — GPU compositing hints
+   ════════════════════════════════════════════ */
+
+/* Handled dynamically by Framer Motion, removed to prevent GPU layer exhaustion */
+
+/* Section containers that hold animated children */
+.scroll-container {
+  position: relative;
+}
+
+/* ════════════════════════════════════════════
+   BASE RESET
+   ════════════════════════════════════════════ */
 * {
   cursor: none;
 }
@@ -44,7 +60,9 @@ button {
   cursor: none;
 }
 
-/* ── Skip to content (a11y) ── */
+/* ════════════════════════════════════════════
+   ACCESSIBILITY
+   ════════════════════════════════════════════ */
 .skip-to-content {
   position: absolute;
   left: -9999px;
@@ -59,45 +77,43 @@ button {
   left: 0;
 }
 
-/* ── Scrollbar ── */
+/* Focus rings — WCAG compliant */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ════════════════════════════════════════════
+   SCROLLBAR — hidden for clean aesthetics
+   ════════════════════════════════════════════ */
 ::-webkit-scrollbar {
   width: 0;
   height: 0;
 }
 
-/* ── Film Grain filter (hidden SVG) ── */
+/* ════════════════════════════════════════════
+   GRAIN FILTER
+   ════════════════════════════════════════════ */
 #grain-filter {
   position: fixed;
   width: 0;
   height: 0;
 }
 
-/* ── Glass card base ── */
+/* ════════════════════════════════════════════
+   GLASS CARD SYSTEM
+   - bg-white/[0.03] at rest → 0.07 on hover
+   - MANDATORY top-edge light catch
+   - Mouse-tracking radial glow via ::before
+   ════════════════════════════════════════════ */
 .glass-card {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
   border-radius: 1rem;
   position: relative;
-}
-
-.glass-card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: radial-gradient(200px at var(--mouse-x) var(--mouse-y),
-      rgba(255, 255, 255, 0.06),
-      transparent);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  pointer-events: none;
-}
-
-.glass-card:hover::before {
-  opacity: 1;
 }
 
 .glass-card:hover {
@@ -105,18 +121,23 @@ button {
   border-color: rgba(255, 255, 255, 0.18);
 }
 
-/* ── Marquee ── */
+/* ════════════════════════════════════════════
+   MARQUEE SYSTEM
+   ════════════════════════════════════════════ */
 .marquee-track {
   display: flex;
   width: max-content;
   will-change: transform;
 }
 
-.pause-on-hover:hover .marquee-track {
+.pause-on-hover:hover .marquee-track,
+.pause-on-hover:hover .animate-marquee-left {
   animation-play-state: paused !important;
 }
 
-/* ── Text clip gradient ── */
+/* ════════════════════════════════════════════
+   TEXT UTILITIES
+   ════════════════════════════════════════════ */
 .text-gradient {
   background: linear-gradient(135deg, var(--accent), var(--accent-lime));
   -webkit-background-clip: text;
@@ -124,7 +145,9 @@ button {
   background-clip: text;
 }
 
-/* ── Rotating text 3D effect ── */
+/* ════════════════════════════════════════════
+   ROTATING TEXT 3D
+   ════════════════════════════════════════════ */
 .slide-text-wrap {
   perspective: 82.5rem;
   overflow: hidden;
@@ -137,7 +160,21 @@ button {
   display: block;
 }
 
-/* ── Responsive cursor hide on mobile ── */
+/* ════════════════════════════════════════════
+   WORD REVEAL CLIP
+   ════════════════════════════════════════════ */
+.word-clip {
+  overflow: hidden;
+  display: inline-block;
+}
+
+.word-clip span {
+  display: inline-block;
+}
+
+/* ════════════════════════════════════════════
+   MOBILE CURSOR RESET
+   ════════════════════════════════════════════ */
 @media (max-width: 768px) {
   * {
     cursor: auto !important;
@@ -149,12 +186,32 @@ button {
   }
 }
 
-/* ── Word reveal clip ── */
-.word-clip {
-  overflow: hidden;
-  display: inline-block;
+/* ════════════════════════════════════════════
+   REDUCED MOTION — disable transforms, keep opacity
+   ════════════════════════════════════════════ */
+@media (prefers-reduced-motion: reduce) {
+  .parallax-layer {
+    will-change: auto;
+    transform: none !important;
+  }
+
+  .animate-marquee-left,
+  .animate-marquee-right {
+    animation: none !important;
+  }
 }
 
-.word-clip span {
-  display: inline-block;
+/* ════════════════════════════════════════════
+   OSCILLOSCOPE GRID OVERLAY (CSS clip-path glitch)
+   Lightweight alternative to Three.js shader effects
+   ════════════════════════════════════════════ */
+@keyframes glitch-clip {
+  0%, 100% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
+  25% { clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%); }
+  50% { clip-path: polygon(0 0, 100% 3%, 100% 100%, 0 97%); }
+  75% { clip-path: polygon(0 2%, 100% 0, 100% 98%, 0 100%); }
+}
+
+.glitch-effect {
+  animation: glitch-clip 4s ease-in-out infinite;
 }

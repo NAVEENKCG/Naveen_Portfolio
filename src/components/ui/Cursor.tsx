@@ -15,6 +15,9 @@ export function CustomCursor() {
     // Ensure dot is perfectly centered and hidden until mouse moves
     gsap.set(dot, { xPercent: -50, yPercent: -50, opacity: 0 })
 
+    const xTo = gsap.quickTo(dot, "x", { duration: 0.15, ease: "power3" })
+    const yTo = gsap.quickTo(dot, "y", { duration: 0.15, ease: "power3" })
+
     let isVisible = false
 
     const onMouseMove = (e: MouseEvent) => {
@@ -22,13 +25,8 @@ export function CustomCursor() {
         gsap.to(dot, { opacity: 1, duration: 0.3 })
         isVisible = true
       }
-      gsap.to(dot, {
-        x: e.clientX,
-        y: e.clientY,
-        duration: 0.1,
-        ease: 'power2.out',
-        overwrite: 'auto',
-      })
+      xTo(e.clientX)
+      yTo(e.clientY)
     }
 
     const addInteractive = () => {

@@ -1,28 +1,30 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { useEffect, useRef, useState, useCallback } from 'react'
+import { motion, useScroll, useTransform, useSpring, useReducedMotion, LazyMotion, domAnimation, m } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
 import { Navbar } from '@/components/ui/Navbar'
 import { MagneticButton } from '@/components/motion/MagneticButton'
-import { fadeInUp, EASE_CINEMATIC } from '@/lib/animations'
+import { ParallaxCard } from '@/components/motion/ParallaxCard'
+import { OscilloscopeCanvas } from '@/components/motion/OscilloscopeCanvas'
+import { CircuitWipe } from '@/components/motion/CircuitWipe'
+import { EASE_CINEMATIC, SPRING_SCROLL, throttle } from '@/lib/animations'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger)
 }
 
 /* ──────────────────────────────────────
-   ROTATING TEXT DATA
+   DATA
    ────────────────────────────────────── */
 const rotatingWords = ['IoT', 'Web Dev', 'AI/ML', 'Embedded']
-
 const services = ['Embedded Systems', 'Web Development', 'AI & Machine Learning']
 
 const awards = [
-  { name: 'Hackathonix \'26', year: '2026', project: 'Book Bridge — 48hr build', icon: '🏆' },
-  { name: 'SCIFEST \'25', year: '2025', project: 'National Science Day Ideathon', icon: '🔬' },
+  { name: "Hackathonix '26", year: '2026', project: 'Book Bridge — 48hr build', icon: '🏆' },
+  { name: "SCIFEST '25", year: '2025', project: 'National Science Day Ideathon', icon: '🔬' },
   { name: 'Young Technocrats 3.0', year: '2025', project: 'College Innovation Summit Coordinator', icon: '🎯' },
   { name: 'IoT Boot Camp', year: '2025', project: 'Accident Rescue System — KCG CoE', icon: '🔧' },
 ]
@@ -61,7 +63,7 @@ const testimonials = [
   {
     name: 'Prof. Kathiresan',
     role: 'Faculty Mentor — KCG College of Technology',
-    text: 'Naveenraj demonstrated exceptional problem-solving skills during the Hackathonix \'26 event. His ability to blend hardware and software solutions set his team apart.',
+    text: "Naveenraj demonstrated exceptional problem-solving skills during the Hackathonix '26 event. His ability to blend hardware and software solutions set his team apart.",
   },
   {
     name: 'Arun Kumar',
@@ -70,7 +72,7 @@ const testimonials = [
   },
   {
     name: 'Divya Lakshmi',
-    role: 'Peer Developer — Hackathonix \'26',
+    role: "Peer Developer — Hackathonix '26",
     text: 'His portfolio and web applications showcase a rare combination of aesthetic sensibility and technical rigor. The Book Bridge platform was impressive both visually and functionally.',
   },
 ]
@@ -88,10 +90,18 @@ export default function HomePage() {
   const prefersReducedMotion = useReducedMotion()
   const [currentWord, setCurrentWord] = useState(0)
   const [greeting, setGreeting] = useState('Good morning!')
-  const [currentTestimonial, setCurrentTestimonial] = useState(0)
   const heroRef = useRef<HTMLElement>(null)
-  const aboutQuoteRef = useRef<HTMLDivElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
+
+  /* ── Scoped scroll for hero parallax ── */
+  const { scrollYProgress: heroScrollProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+  const smoothHeroProgress = useSpring(heroScrollProgress, SPRING_SCROLL)
+  // Hero image: scale down + fade out as content floor rises
+  const heroScale = useTransform(smoothHeroProgress, [0, 0.3, 0.7, 1], [1, 0.98, 0.95, 0.9])
+  const heroOpacity = useTransform(smoothHeroProgress, [0, 0.5, 1], [1, 0.5, 0])
 
   // Dynamic greeting
   useEffect(() => {
@@ -109,17 +119,8 @@ export default function HomePage() {
     return () => clearInterval(interval)
   }, [])
 
-  // Testimonial auto-advance
+  // GSAP scroll animations (stat counters + footer curtain)
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTestimonial((prev) => (prev + 1) % testimonials.length)
-    }, 6000)
-    return () => clearInterval(interval)
-  }, [])
-
-  // GSAP scroll animations
-  useEffect(() => {
-
     // Stat counter animation
     if (statsRef.current) {
       const statEls = statsRef.current.querySelectorAll('[data-count]')
@@ -144,37 +145,8 @@ export default function HomePage() {
       })
     }
 
-    // Hero image parallax (Scale & Fade into Floor)
-    gsap.to('#hero-bg', {
-      scale: 0.95,
-      opacity: 0,
-      ease: 'none',
-      scrollTrigger: {
-        trigger: '#content-floor',
-        start: 'top bottom',
-        end: 'top 20%',
-        scrub: true,
-      },
-    })
-
-    // Footer Mask Reveal (The "Curtain" effect)
-    const footer = document.querySelector('#contact')
-    if (footer) {
-      gsap.fromTo(
-        footer,
-        { clipPath: 'inset(100% 0 0 0)' },
-        {
-          clipPath: 'inset(0% 0 0 0)',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: footer,
-            start: 'top bottom',
-            end: '50% bottom',
-            scrub: true,
-          },
-        }
-      )
-    }
+    // Footer Mask Reveal (Curtain effect) removed from GSAP
+    // Replaced with Framer Motion optimized approach.
   }, [])
 
   return (
@@ -185,6 +157,9 @@ export default function HomePage() {
           HERO SECTION
           ════════════════════════════════════ */}
       <section id="hero" ref={heroRef} className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Oscilloscope waveform background — lightweight canvas, no Three.js */}
+        <OscilloscopeCanvas />
+
         {/* Subtle background glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_60%_50%,rgba(255,77,0,0.06),transparent_60%)]" />
         <div
@@ -195,20 +170,24 @@ export default function HomePage() {
           }}
         />
 
-        {/* Fixed Hero Image Layer — Z-Index Layer A */}
-        <div id="hero-bg" className="fixed inset-0 z-0 mix-blend-lighten opacity-80 pointer-events-none transform origin-center">
+        {/* Fixed Hero Image Layer — uses scoped scroll transforms for parallax */}
+        <motion.div
+          id="hero-bg"
+          className="fixed inset-0 z-0 pointer-events-none parallax-layer"
+          style={{ scale: heroScale, opacity: heroOpacity }}
+        >
           <Image
             src="/hero-1.jpg"
             alt="Naveenraj SS"
             fill
-            className="object-cover object-left-top lg:scale-100 lg:translate-x-[25%]"
+            className="object-cover object-center lg:translate-x-[15%] brightness-110"
             priority
             sizes="(max-width: 668px) 100vw, 90vw"
           />
-          {/* Subtle gradient to ensure text remains readable */}
-          <div className="absolute inset-0 bg-gradient-to-r from-base via-base/30 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-base via-transparent to-transparent" />
-        </div>
+          {/* Gradient overlays — only on left side for text readability, right side stays bright */}
+          <div className="absolute inset-0 bg-gradient-to-r from-base from-10% via-base/50 via-40% to-transparent to-70%" />
+          <div className="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent" />
+        </motion.div>
 
         <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-10 min-h-screen flex flex-col justify-between py-24 md:py-28">
           {/* Top row */}
@@ -286,7 +265,7 @@ export default function HomePage() {
             </motion.div>
           </div>
 
-          {/* Bottom row — services + bio + stats */}
+          {/* Bottom row — services + bio */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -325,7 +304,7 @@ export default function HomePage() {
         {/* ════════════════════════════════════
             INTRO / ABOUT SECTION
             ════════════════════════════════════ */}
-        <section id="about" className="relative py-24 md:py-40 px-6 md:px-10">
+        <section id="about" className="scroll-container relative py-24 md:py-40 px-6 md:px-10">
           <div className="max-w-[1400px] mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
               {/* Left — Client logos / Industry */}
@@ -344,7 +323,6 @@ export default function HomePage() {
                       key={logo}
                       className="glass-card aspect-[4/3] flex items-center justify-center p-6 rounded-2xl hover:bg-white/[0.07] hover:border-white/[0.18] transition-colors duration-300 relative overflow-hidden group"
                     >
-                      {/* Fake image gradient to "fill" the space as requested */}
                       <div
                         className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-500"
                         style={{ background: `linear-gradient(${135 + i * 45}deg, var(--accent) 0%, transparent 100%)` }}
@@ -419,32 +397,29 @@ export default function HomePage() {
                     <span className="text-accent text-xl">↗</span>
                   </a>
                 </MagneticButton>
-
               </div>
             </div>
           </div>
         </section>
 
+        {/* Circuit trace divider */}
+        <CircuitWipe className="mb-4" />
+
         {/* ════════════════════════════════════
           AWARDS + MARQUEE
           ════════════════════════════════════ */}
-        <section className="py-16 border-y border-white/[0.06] overflow-hidden">
+        <section className="scroll-container py-16 border-y border-white/[0.06] overflow-hidden">
           <div className="max-w-[1400px] mx-auto px-6 md:px-10 mb-16">
             <h3 className="text-sm font-bold mb-8" style={{ fontFamily: 'var(--font-syne)' }}>
               Awards
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {awards.map((award) => (
-                <motion.div
+                <ParallaxCard
                   key={award.name}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-100px' }}
-                  transition={EASE_CINEMATIC}
-                  whileHover={{ y: -8 }}
-                  className="glass-card p-6 rounded-2xl"
-                  data-cursor="interactive"
-                  data-cursor-label="VIEW"
+                  className="glass-card p-6 rounded-2xl group"
+                  tiltIntensity={10}
+                  parallaxRange={30}
                 >
                   <div className="text-lg mb-2">{award.icon}</div>
                   <div className="text-text-primary/20 text-xs font-mono mb-1">{award.year}</div>
@@ -452,7 +427,7 @@ export default function HomePage() {
                     {award.name}
                   </div>
                   <div className="text-xs text-text-primary/40">{award.project}</div>
-                </motion.div>
+                </ParallaxCard>
               ))}
             </div>
           </div>
@@ -485,41 +460,46 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Marquee */}
-          <div className="pause-on-hover mt-8 overflow-hidden flex bg-surface/30 border-y border-white/[0.03] py-6 whitespace-nowrap relative">
-            <div className="flex shrink-0 animate-marquee-left will-change-transform">
-              {[...Array(6)].map((_, i) => (
-                <span key={`a-${i}`} className="flex items-center gap-8 pr-8 text-[clamp(2.5rem,6vw,4rem)] font-bold uppercase text-text-primary/80 whitespace-nowrap" style={{ fontFamily: 'var(--font-clash-display)' }}>
-                  <span>Embedded Systems</span>
-                  <span className="text-accent/80">✦</span>
-                  <span>Web Development</span>
-                  <span className="text-accent/80">✦</span>
-                  <span>AI & Machine Learning</span>
-                  <span className="text-accent/80">✦</span>
-                </span>
-              ))}
+          {/* Marquee — uses LazyMotion for lighter tree-shaking */}
+          <LazyMotion features={domAnimation} strict>
+            <div className="pause-on-hover mt-8 overflow-hidden flex bg-surface/30 border-y border-white/[0.03] py-6 whitespace-nowrap relative">
+              <div className="flex shrink-0 animate-marquee-left will-change-transform">
+                {[...Array(6)].map((_, i) => (
+                  <span key={`a-${i}`} className="flex items-center gap-8 pr-8 text-[clamp(2.5rem,6vw,4rem)] font-bold uppercase text-text-primary/80 whitespace-nowrap" style={{ fontFamily: 'var(--font-clash-display)' }}>
+                    <span>Embedded Systems</span>
+                    <span className="text-accent/80">✦</span>
+                    <span>Web Development</span>
+                    <span className="text-accent/80">✦</span>
+                    <span>AI & Machine Learning</span>
+                    <span className="text-accent/80">✦</span>
+                  </span>
+                ))}
+              </div>
+              <div className="flex shrink-0 animate-marquee-left will-change-transform">
+                {[...Array(6)].map((_, i) => (
+                  <span key={`b-${i}`} className="flex items-center gap-8 pr-8 text-[clamp(2.5rem,6vw,4rem)] font-bold uppercase text-text-primary/80 whitespace-nowrap" style={{ fontFamily: 'var(--font-clash-display)' }}>
+                    <span>Embedded Systems</span>
+                    <span className="text-accent/80">✦</span>
+                    <span>Web Development</span>
+                    <span className="text-accent/80">✦</span>
+                    <span>AI & Machine Learning</span>
+                    <span className="text-accent/80">✦</span>
+                  </span>
+                ))}
+              </div>
             </div>
-            <div className="flex shrink-0 animate-marquee-left will-change-transform">
-              {[...Array(6)].map((_, i) => (
-                <span key={`b-${i}`} className="flex items-center gap-8 pr-8 text-[clamp(2.5rem,6vw,4rem)] font-bold uppercase text-text-primary/80 whitespace-nowrap" style={{ fontFamily: 'var(--font-clash-display)' }}>
-                  <span>Embedded Systems</span>
-                  <span className="text-accent/80">✦</span>
-                  <span>Web Development</span>
-                  <span className="text-accent/80">✦</span>
-                  <span>AI & Machine Learning</span>
-                  <span className="text-accent/80">✦</span>
-                </span>
-              ))}
-            </div>
-          </div>
+          </LazyMotion>
         </section>
 
+        {/* Circuit trace divider */}
+        <CircuitWipe className="my-4" />
+
         {/* ════════════════════════════════════
-          PROJECTS SECTION
+          PROJECTS SECTION — Scoped scroll container
           ════════════════════════════════════ */}
-        <section id="projects" className="py-24 md:py-40 px-6 md:px-10">
+        <section id="projects" className="scroll-container py-24 md:py-40 px-6 md:px-10">
           <div className="max-w-[1400px] mx-auto">
-            {/* Section header — massive text like reference */}
+            {/* Section header */}
             <motion.div
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -538,20 +518,20 @@ export default function HomePage() {
               </h2>
             </motion.div>
 
-            {/* Project cards */}
+            {/* Project cards — using ParallaxCard for 3D tilt + scoped scroll */}
             <div className="space-y-32">
               {projects.map((project, i) => (
-                <motion.article
+                <ParallaxCard
                   key={project.name}
-                  initial={{ opacity: 0, y: 80 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: '-100px' }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  as="article"
                   className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 lg:gap-16 items-start"
+                  tiltIntensity={8}
+                  parallaxRange={40}
+                  glowColor={`${project.color}80`}
                 >
                   {/* Project image area */}
                   <div
-                    className="relative aspect-[16/10] rounded-2xl overflow-hidden group bg-surface"
+                    className="relative aspect-[16/10] rounded-2xl overflow-hidden group bg-surface transform-gpu"
                     data-cursor="interactive"
                     data-cursor-label="VIEW"
                   >
@@ -560,12 +540,12 @@ export default function HomePage() {
                       alt={project.name}
                       fill
                       className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                      loading="lazy"
+                      sizes="(max-width: 768px) 100vw, 50vw"
                     />
-                    {/* Decorative gradient glow overlay */}
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-700" />
                     <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
 
-                    {/* Project name overlay */}
                     <div className="absolute bottom-8 left-8 right-8">
                       <h3
                         className="text-2xl md:text-3xl font-bold text-text-primary mb-3"
@@ -604,7 +584,7 @@ export default function HomePage() {
                       <span className="text-sm text-text-primary/50 leading-relaxed">{project.desc}</span>
                     </div>
                   </div>
-                </motion.article>
+                </ParallaxCard>
               ))}
             </div>
           </div>
@@ -613,7 +593,7 @@ export default function HomePage() {
         {/* ════════════════════════════════════
           TESTIMONIALS SECTION
           ════════════════════════════════════ */}
-        <section id="testimonials" className="py-24 md:py-40 px-6 md:px-10 bg-surface">
+        <section id="testimonials" className="scroll-container py-24 md:py-40 px-6 md:px-10 bg-surface">
           <div className="max-w-[1400px] mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 40 }}
@@ -655,55 +635,60 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Circuit trace divider */}
+        <CircuitWipe className="my-4" />
+
         {/* ════════════════════════════════════
-          SKILLS SECTION
+          SKILLS SECTION — wrapped in LazyMotion for mobile perf
           ════════════════════════════════════ */}
-        <section className="py-24 md:py-32 px-6 md:px-10">
-          <div className="max-w-[1400px] mx-auto text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={EASE_CINEMATIC}
-            >
-              <h3 className="text-xs text-text-primary/20 uppercase tracking-wider mb-12 font-mono">
-                Skills & Technologies
-              </h3>
-              <div className="flex flex-wrap justify-center gap-3">
-                {skills.map((skill, i) => (
-                  <motion.span
-                    key={skill}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.04, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                    whileHover={{ scale: 1.08, backgroundColor: 'var(--accent)', color: '#000', borderColor: 'var(--accent)' }}
-                    whileTap={{ scale: 0.96 }}
-                    className="text-xs px-5 py-3 glass-card rounded-full text-text-primary/50 cursor-none"
-                    style={{
-                      fontFamily: 'var(--font-syne)',
-                      transform: `rotate(${(i % 2 === 0 ? -1 : 1) * (Math.random() * 2 + 1)}deg)`,
-                    }}
-                    data-cursor="interactive"
-                    data-cursor-label="SKILL"
-                  >
-                    {skill}
-                  </motion.span>
-                ))}
-              </div>
-            </motion.div>
-          </div>
-        </section>
+        <LazyMotion features={domAnimation} strict>
+          <section className="scroll-container py-24 md:py-32 px-6 md:px-10">
+            <div className="max-w-[1400px] mx-auto text-center">
+              <m.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={EASE_CINEMATIC}
+              >
+                <h3 className="text-xs text-text-primary/20 uppercase tracking-wider mb-12 font-mono">
+                  Skills & Technologies
+                </h3>
+                <div className="flex flex-wrap justify-center gap-3">
+                  {skills.map((skill, i) => (
+                    <m.span
+                      key={skill}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.04, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                      whileHover={{ scale: 1.08, backgroundColor: 'var(--accent)', color: '#000', borderColor: 'var(--accent)' }}
+                      whileTap={{ scale: 0.96 }}
+                      className="text-xs px-5 py-3 glass-card rounded-full text-text-primary/50 cursor-none"
+                      style={{
+                        fontFamily: 'var(--font-syne)',
+                        transform: `rotate(${(i % 2 === 0 ? -1 : 1) * (Math.random() * 2 + 1)}deg)`,
+                      }}
+                      data-cursor="interactive"
+                      data-cursor-label="SKILL"
+                    >
+                      {skill}
+                    </m.span>
+                  ))}
+                </div>
+              </m.div>
+            </div>
+          </section>
+        </LazyMotion>
 
         {/* ════════════════════════════════════
           CONTACT / FOOTER
           ════════════════════════════════════ */}
-        <footer id="contact" className="relative py-24 md:py-40 px-6 md:px-10 overflow-hidden">
+        <footer id="contact" className="scroll-container relative py-24 md:py-40 px-6 md:px-10 overflow-hidden">
           {/* Background glow */}
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,77,0,0.08),transparent_60%)] pointer-events-none" />
 
           <div className="max-w-[1400px] mx-auto relative z-10">
-            {/* Two column footer layout like reference */}
+            {/* Two column footer layout */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-16 mb-20">
               <div>
                 <h3 className="text-xs text-text-primary/30 uppercase tracking-wider mb-3 font-mono">Socials</h3>

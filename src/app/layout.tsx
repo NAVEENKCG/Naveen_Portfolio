@@ -48,6 +48,10 @@ export default function RootLayout({
       className={`dark ${dmSans.variable} ${spaceMono.variable} ${syne.variable}`}
     >
       <head>
+        {/* Preconnect to font CDNs for faster LCP */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="preconnect" href="https://api.fontshare.com" crossOrigin="anonymous" />
         <link
           href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap"
           rel="stylesheet"
