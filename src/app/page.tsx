@@ -19,68 +19,120 @@ if (typeof window !== 'undefined') {
 /* ──────────────────────────────────────
    DATA
    ────────────────────────────────────── */
-const rotatingWords = ['IoT', 'Web Dev', 'AI/ML', 'Embedded']
-const services = ['Embedded Systems', 'Web Development', 'AI & Machine Learning']
+const rotatingWords = ['IoT', 'PCB Design', 'AI/ML', 'Embedded', 'BCI']
+const services = ['Embedded Systems & PCB Design', 'IoT & Automation', 'AI & Machine Learning']
 
-const awards = [
-  { name: "Hackathonix '26", year: '2026', project: 'Book Bridge — 48hr build', icon: '🏆' },
-  { name: "SCIFEST '25", year: '2025', project: 'National Science Day Ideathon', icon: '🔬' },
-  { name: 'Young Technocrats 3.0', year: '2025', project: 'College Innovation Summit Coordinator', icon: '🎯' },
-  { name: 'IoT Boot Camp', year: '2025', project: 'Accident Rescue System — KCG CoE', icon: '🔧' },
+const education = {
+  degree: 'B.E. — Electronics & Communication Engineering',
+  college: 'KCG College of Technology, Chennai',
+  duration: 'Sep 2024 – Present',
+  status: 'Semester 3',
+  cgpa: '8.34 / 10.00',
+}
+
+const experience = {
+  role: 'Industrial Trainee — Data Networking',
+  company: 'Bharat Sanchar Nigam Limited (BSNL), Chennai',
+  duration: '1 Week · 2024',
+  description: 'Completed structured training on routing protocols, switching architectures, and enterprise communication systems. Gained hands-on exposure to large-scale telecom infrastructure and industrial networking setups.',
+}
+
+const achievements = [
+  { name: 'Young Technocrats 3.0', year: '2025', project: 'Led KCG-wide innovation summit as Coordinator', icon: '🎯' },
+  { name: "Hackathonix '26", year: '2026', project: 'Built BookBridge (full-stack) in 48 hours', icon: '🏆' },
+  { name: "SCIFEST '25 — Ideathon", year: '2025', project: 'KCG Innovation Council, National Science Day', icon: '🔬' },
+  { name: 'IoT Boot Camp', year: '2025', project: 'Accident Rescue System — KCG ECE Centre of Excellence', icon: '🔧' },
 ]
 
 const projects = [
   {
-    name: 'Smart Traffic Control',
-    role: 'Lead Developer',
-    year: '2025',
-    desc: 'AI-driven real-time vehicle detection that dynamically adjusts signal intervals using YOLOv5 and ESP32.',
-    tags: ['Python', 'YOLOv5', 'OpenCV', 'ESP32'],
-    color: '#0d1b2a',
-    image: '/project-1.png',
+    name: 'Orbit AI — Mind-Controlled Assistive System',
+    period: 'In Development',
+    desc: 'Wearable non-invasive BCI device. EEG signals acquired via ADS1299, classified on-device using TinyML on ESP32/ARM Cortex-M, and delivered over BLE/Wi-Fi/ESP-NOW with <50 ms latency to control wheelchairs and smart home devices.',
+    tags: ['ESP32', 'ADS1299', 'TensorFlow Lite', 'BLE', 'Wi-Fi', 'ESP-NOW'],
+    color: '#1a0a2e',
+    image: '/project-orbit-ai.png',
+    github: 'https://github.com/NAVEENKCG/Mind_Wave_AImodel',
+    flagship: true,
   },
   {
-    name: 'Posture Detection System',
-    role: 'Developer',
-    year: '2025',
-    desc: 'Sensor-camera system monitoring body posture in real time, triggering alerts to reduce deep vein thrombosis risk.',
+    name: 'Posture Detection & Thrombosis Prevention',
+    period: 'Nov 2025 – Feb 2026',
+    desc: 'Real-time posture monitoring system using multiple sensors and a microcontroller. Sensor data is classified on-device and alerts are pushed wirelessly to the user within <100 ms.',
     tags: ['Sensors', 'Microcontroller', 'Embedded C', 'Python'],
     color: '#1a0a2e',
-    image: '/project-2.png',
+    image: '/project-posture.png',
+    github: 'https://github.com/NAVEENKCG/Photo_Pose_AI',
+    flagship: false,
   },
   {
-    name: 'RF Interference Detector',
-    role: 'Engineer',
-    year: '2025',
-    desc: 'Op-Amp based RF noise detection circuit using LM358 & ESP32 to track anomalous wireless signals.',
-    tags: ['ESP32', 'LM358', 'Embedded C'],
+    name: 'RF Defence System — PCB Design & Embedded',
+    period: 'Jan – Mar 2026',
+    desc: 'Designed a full RF interference detector PCB from schematic to Gerber/DRL outputs using KiCad. Integrated LM358 Op-Amp with ESP32 to detect and directionally track anomalous wireless signals.',
+    tags: ['KiCad', 'ESP32', 'LM358 Op-Amp', 'Embedded C'],
     color: '#0a1628',
-    image: '/project-3.png',
+    image: '/project-rf-defence.png',
+    github: 'https://github.com/NAVEENKCG/RF_Defence_System_PCB',
+    flagship: false,
+  },
+  {
+    name: 'Servo Motor Tester PCB',
+    period: 'May 2026',
+    desc: 'Hardware PCB designed to test servo motors precisely without complex setups. Implements timer circuits and potentiometers for manual control testing.',
+    tags: ['KiCad', 'PCB Design', 'Hardware', 'Analog'],
+    color: '#0d1b2a',
+    image: '/project-servo.png',
+    github: 'https://github.com/NAVEENKCG/Servo_motor_tester_PCB',
+    flagship: false,
   },
 ]
 
-const testimonials = [
-  {
-    name: 'Prof. Kathiresan',
-    role: 'Faculty Mentor — KCG College of Technology',
-    text: "Naveenraj demonstrated exceptional problem-solving skills during the Hackathonix '26 event. His ability to blend hardware and software solutions set his team apart.",
-  },
-  {
-    name: 'Arun Kumar',
-    role: 'Team Lead — Young Technocrats 3.0',
-    text: 'Working with Naveenraj on the Smart Traffic Control project was remarkable. His deep understanding of both AI models and hardware integration made it a success.',
-  },
-  {
-    name: 'Divya Lakshmi',
-    role: "Peer Developer — Hackathonix '26",
-    text: 'His portfolio and web applications showcase a rare combination of aesthetic sensibility and technical rigor. The Book Bridge platform was impressive both visually and functionally.',
-  },
+const webProjects = [
+  { name: 'MindWave Web', desc: 'UI dashboard for BCI system data visualisation' },
+  { name: 'BookBridge', desc: 'Full-stack book-sharing platform built in 48 hours at Hackathonix \'26' },
+  { name: 'Portfolio Sites', desc: 'Personal and client portfolios with animated, responsive layouts' },
 ]
 
-const skills = [
-  'React', 'Python', 'JavaScript', 'YOLOv5', 'Tailwind CSS', 'ESP32',
-  'OpenCV', 'Framer Motion', 'Embedded C', 'Arduino', 'FPGA',
-  'HTML5/CSS3', 'Microcontrollers', 'UI/UX Design', 'RF Systems',
+const certifications = [
+  { name: 'FPGA Architecture', issuer: 'GUVI / HCL', icon: '🔲' },
+  { name: 'IoT Boot Camp', issuer: 'KCG Centre of Excellence', icon: '📡' },
+  { name: 'Data Networking', issuer: 'BSNL, Chennai', icon: '🌐' },
+  { name: 'Arduino Programming', issuer: 'GUVI / HCL', icon: '⚡' },
+]
+
+const skillGroups = [
+  {
+    label: 'Core Skills',
+    skills: ['Embedded C / C++', 'ESP32 & Arduino', 'IoT System Design', 'PCB Design', 'Embedded Automation', 'Sensor Integration', 'Python & AI/ML (TinyML)', 'UI / Web Design', 'FPGA Programming'],
+  },
+  {
+    label: 'Microcontrollers',
+    skills: ['ESP32', 'ARM Cortex-M', 'Arduino'],
+  },
+  {
+    label: 'Hardware & Analog',
+    skills: ['Op-Amps', 'Rectifier & Filter Design', 'RF Modules', 'FPGA'],
+  },
+  {
+    label: 'PCB Design Tools',
+    skills: ['KiCad', 'Altium'],
+  },
+  {
+    label: 'Protocols & Wireless',
+    skills: ['UART', 'BLE', 'Wi-Fi', 'ESP-NOW', 'SPI', 'I²C'],
+  },
+  {
+    label: 'AI / Vision',
+    skills: ['YOLOv5', 'OpenCV', 'TensorFlow Lite', 'PyTorch', 'NumPy', 'Scikit-learn'],
+  },
+  {
+    label: 'Languages',
+    skills: ['Embedded C', 'C++', 'Python'],
+  },
+  {
+    label: 'UI / Web Design',
+    skills: ['React', 'Tailwind CSS', 'Framer Motion', 'HTML5', 'CSS3'],
+  },
 ]
 
 /* ──────────────────────────────────────
@@ -119,9 +171,8 @@ export default function HomePage() {
     return () => clearInterval(interval)
   }, [])
 
-  // GSAP scroll animations (stat counters + footer curtain)
+  // GSAP scroll animations (stat counters)
   useEffect(() => {
-    // Stat counter animation
     if (statsRef.current) {
       const statEls = statsRef.current.querySelectorAll('[data-count]')
       statEls.forEach((el) => {
@@ -144,9 +195,6 @@ export default function HomePage() {
         })
       })
     }
-
-    // Footer Mask Reveal (Curtain effect) removed from GSAP
-    // Replaced with Framer Motion optimized approach.
   }, [])
 
   return (
@@ -177,11 +225,12 @@ export default function HomePage() {
           style={{ scale: heroScale, opacity: heroOpacity }}
         >
           <Image
-            src="/hero-1.jpg"
-            alt="Naveenraj SS"
+            src="/hero-new.jpg"
+            alt="Naveenraj S.S. — Electronics & Communication Engineer"
             fill
             className="object-cover object-center lg:translate-x-[15%] brightness-110"
             priority
+            quality={90}
             sizes="(max-width: 668px) 100vw, 90vw"
           />
           {/* Gradient overlays — only on left side for text readability, right side stays bright */}
@@ -201,7 +250,7 @@ export default function HomePage() {
           </motion.div>
 
           {/* Center — name and headline */}
-          <div className="flex-1 flex flex-col justify-center">
+          <div className="flex-1 flex flex-col justify-center mt-16 md:mt-24">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -220,7 +269,7 @@ export default function HomePage() {
                   className="text-sm md:text-base font-bold text-text-primary/50"
                   style={{ fontFamily: 'var(--font-clash-display)' }}
                 >
-                  SS
+                  S.S.
                 </span>
               </div>
             </motion.div>
@@ -289,7 +338,7 @@ export default function HomePage() {
             {/* Bio text */}
             <div className="max-w-sm text-right">
               <p className="text-xs md:text-sm text-text-primary/50 leading-relaxed">
-                I&apos;m an ECE engineering student specializing in embedded systems, AI/ML, and modern web development. I work across IoT, Hardware & Full Stack.
+                Electronics &amp; Communication Engineer · Embedded Systems &amp; PCB Designer. Passionate about R&amp;D in embedded systems, IoT, and AI-based solutions.
               </p>
             </div>
           </motion.div>
@@ -307,7 +356,7 @@ export default function HomePage() {
         <section id="about" className="scroll-container relative py-24 md:py-40 px-6 md:px-10">
           <div className="max-w-[1400px] mx-auto">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-              {/* Left — Client logos / Industry */}
+              {/* Left — Affiliations */}
               <motion.div
                 initial={{ opacity: 0, x: -40 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -315,7 +364,7 @@ export default function HomePage() {
                 transition={EASE_CINEMATIC}
               >
                 <h3 className="text-sm text-text-primary/40 mb-8">
-                  Industry leaders I worked for
+                  Affiliations &amp; Experience
                 </h3>
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
                   {['KCG College', 'BSNL', 'GUVI/HCL', 'Young Tech', 'SCIFEST', 'Hackathonix'].map((logo, i) => (
@@ -341,7 +390,7 @@ export default function HomePage() {
                   viewport={{ once: true }}
                   className="text-xs text-accent/70 mb-4 block"
                 >
-                  (Intro)
+                  (About)
                 </motion.span>
 
                 <motion.div
@@ -355,7 +404,7 @@ export default function HomePage() {
                   className="mb-12"
                 >
                   <p className="text-2xl md:text-[2.5rem] leading-[1.3] tracking-[-0.02em] text-text-primary/80 mb-8" style={{ fontFamily: 'var(--font-clash-display)', fontWeight: 300 }}>
-                    {`Engineering should be intuitive, accessible, and empowering. I use human-centered design to create solutions that bridge hardware and software.`.split(' ').map((word, i) => (
+                    {`2nd-year ECE student with hands-on experience in embedded systems and PCB design. Designed PCBs from schematic to Gerber output using KiCad and Altium.`.split(' ').map((word, i) => (
                       <span key={`w1-${i}`} className="inline-block mr-[0.3em] overflow-hidden">
                         <motion.span
                           variants={{
@@ -370,7 +419,7 @@ export default function HomePage() {
                     ))}
                   </p>
                   <p className="text-2xl md:text-[2.5rem] leading-[1.3] tracking-[-0.02em] text-text-primary/50" style={{ fontFamily: 'var(--font-clash-display)', fontWeight: 300 }}>
-                    {`By applying design thinking, embedded systems knowledge, and strategic planning, I build IoT solutions, AI systems, and stunning web applications.`.split(' ').map((word, i) => (
+                    {`Developed IoT and AI-based embedded projects using ESP32, Embedded C, and TensorFlow Lite. Passionate about R&D in embedded systems.`.split(' ').map((word, i) => (
                       <span key={`w2-${i}`} className="inline-block mr-[0.3em] overflow-hidden">
                         <motion.span
                           variants={{
@@ -406,15 +455,97 @@ export default function HomePage() {
         <CircuitWipe className="mb-4" />
 
         {/* ════════════════════════════════════
-          AWARDS + MARQUEE
+            EDUCATION & EXPERIENCE SECTION
+            ════════════════════════════════════ */}
+        <section id="education" className="scroll-container py-24 md:py-32 px-6 md:px-10">
+          <div className="max-w-[1400px] mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={EASE_CINEMATIC}
+              className="mb-16"
+            >
+              <span className="text-xs text-accent/70 uppercase tracking-widest block mb-4">Education & Experience</span>
+              <h2
+                className="text-4xl md:text-6xl font-light tracking-[-0.03em]"
+                style={{ fontFamily: 'var(--font-clash-display)' }}
+              >
+                Academic Background
+              </h2>
+            </motion.div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+              {/* Education Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={EASE_CINEMATIC}
+              >
+                <div className="glass-card rounded-3xl p-8 md:p-10">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="text-2xl">🎓</span>
+                    <span className="text-xs text-accent/70 uppercase tracking-widest font-bold" style={{ fontFamily: 'var(--font-syne)' }}>Education</span>
+                  </div>
+                  <div className="timeline-card">
+                    <h3 className="text-lg md:text-xl font-bold mb-2" style={{ fontFamily: 'var(--font-clash-display)' }}>
+                      {education.degree}
+                    </h3>
+                    <p className="text-sm text-text-primary/60 mb-1">{education.college}</p>
+                    <p className="text-xs text-text-primary/40 mb-4 font-mono">{education.duration} · {education.status}</p>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-3xl font-light text-accent" style={{ fontFamily: 'var(--font-clash-display)' }}>
+                        {education.cgpa.split('/')[0].trim()}
+                      </span>
+                      <span className="text-sm text-text-primary/30">/ {education.cgpa.split('/')[1].trim()}</span>
+                    </div>
+                    <span className="text-[10px] text-text-primary/30 uppercase tracking-wider">CGPA</span>
+                  </div>
+                </div>
+              </motion.div>
+
+              {/* Experience Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={{ ...EASE_CINEMATIC, delay: 0.1 }}
+              >
+                <div className="glass-card rounded-3xl p-8 md:p-10">
+                  <div className="flex items-center gap-3 mb-6">
+                    <span className="text-2xl">💼</span>
+                    <span className="text-xs text-accent/70 uppercase tracking-widest font-bold" style={{ fontFamily: 'var(--font-syne)' }}>Experience</span>
+                  </div>
+                  <div className="timeline-card">
+                    <h3 className="text-lg md:text-xl font-bold mb-2" style={{ fontFamily: 'var(--font-clash-display)' }}>
+                      {experience.role}
+                    </h3>
+                    <p className="text-sm text-text-primary/60 mb-1">{experience.company}</p>
+                    <p className="text-xs text-text-primary/40 mb-4 font-mono">{experience.duration}</p>
+                    <p className="text-sm text-text-primary/50 leading-relaxed">
+                      {experience.description}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* Circuit trace divider */}
+        <CircuitWipe className="my-4" />
+
+        {/* ════════════════════════════════════
+          ACHIEVEMENTS + MARQUEE
           ════════════════════════════════════ */}
         <section className="scroll-container py-16 border-y border-white/[0.06] overflow-hidden">
           <div className="max-w-[1400px] mx-auto px-6 md:px-10 mb-16">
             <h3 className="text-sm font-bold mb-8" style={{ fontFamily: 'var(--font-syne)' }}>
-              Awards
+              Achievements
             </h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {awards.map((award) => (
+              {achievements.map((award) => (
                 <ParallaxCard
                   key={award.name}
                   className="glass-card p-6 rounded-2xl group"
@@ -439,7 +570,7 @@ export default function HomePage() {
                 { num: 2, suffix: '+', label: 'years of experience' },
                 { num: 10, suffix: '+', label: 'projects completed' },
                 { num: 4, suffix: '', label: 'hackathons & events' },
-                { num: 5, suffix: '', label: 'certifications earned' },
+                { num: 4, suffix: '', label: 'certifications earned' },
               ].map((stat) => (
                 <motion.div
                   key={stat.label}
@@ -468,9 +599,11 @@ export default function HomePage() {
                   <span key={`a-${i}`} className="flex items-center gap-8 pr-8 text-[clamp(2.5rem,6vw,4rem)] font-bold uppercase text-text-primary/80 whitespace-nowrap" style={{ fontFamily: 'var(--font-clash-display)' }}>
                     <span>Embedded Systems</span>
                     <span className="text-accent/80">✦</span>
-                    <span>Web Development</span>
+                    <span>PCB Design</span>
                     <span className="text-accent/80">✦</span>
-                    <span>AI & Machine Learning</span>
+                    <span>IoT &amp; Automation</span>
+                    <span className="text-accent/80">✦</span>
+                    <span>AI / ML</span>
                     <span className="text-accent/80">✦</span>
                   </span>
                 ))}
@@ -480,9 +613,11 @@ export default function HomePage() {
                   <span key={`b-${i}`} className="flex items-center gap-8 pr-8 text-[clamp(2.5rem,6vw,4rem)] font-bold uppercase text-text-primary/80 whitespace-nowrap" style={{ fontFamily: 'var(--font-clash-display)' }}>
                     <span>Embedded Systems</span>
                     <span className="text-accent/80">✦</span>
-                    <span>Web Development</span>
+                    <span>PCB Design</span>
                     <span className="text-accent/80">✦</span>
-                    <span>AI & Machine Learning</span>
+                    <span>IoT &amp; Automation</span>
+                    <span className="text-accent/80">✦</span>
+                    <span>AI / ML</span>
                     <span className="text-accent/80">✦</span>
                   </span>
                 ))}
@@ -495,7 +630,7 @@ export default function HomePage() {
         <CircuitWipe className="my-4" />
 
         {/* ════════════════════════════════════
-          PROJECTS SECTION — Scoped scroll container
+          PROJECTS SECTION
           ════════════════════════════════════ */}
         <section id="projects" className="scroll-container py-24 md:py-40 px-6 md:px-10">
           <div className="max-w-[1400px] mx-auto">
@@ -513,25 +648,27 @@ export default function HomePage() {
                 style={{ fontFamily: 'var(--font-clash-display)' }}
               >
                 WORKED ON<br />
-                <span className="text-text-primary/70">23-25</span>
+                <span className="text-text-primary/70">24-26</span>
                 <sup className="text-accent text-3xl ml-2">®</sup>
               </h2>
             </motion.div>
 
-            {/* Project cards — using ParallaxCard for 3D tilt + scoped scroll */}
+            {/* Project cards */}
             <div className="space-y-32">
               {projects.map((project, i) => (
                 <ParallaxCard
                   key={project.name}
-                  as="article"
-                  className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 lg:gap-16 items-start"
+                  as="a"
+                  href={project.github}
+                  target="_blank"
+                  className={`grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 lg:gap-16 items-start hover:opacity-95 transition-opacity ${project.flagship ? 'flagship-card rounded-3xl p-6 md:p-8' : ''}`}
                   tiltIntensity={8}
                   parallaxRange={40}
                   glowColor={`${project.color}80`}
                 >
                   {/* Project image area */}
                   <div
-                    className="relative aspect-[16/10] rounded-2xl overflow-hidden group bg-surface transform-gpu"
+                    className="relative aspect-video lg:aspect-[21/9] lg:h-[320px] rounded-2xl overflow-hidden group bg-surface transform-gpu"
                     data-cursor="interactive"
                     data-cursor-label="VIEW"
                   >
@@ -540,11 +677,21 @@ export default function HomePage() {
                       alt={project.name}
                       fill
                       className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                      loading="lazy"
-                      sizes="(max-width: 768px) 100vw, 50vw"
+                      loading={i === 0 ? undefined : 'lazy'}
+                      priority={i === 0}
+                      sizes="(max-width: 1024px) 100vw, 60vw"
                     />
                     <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-700" />
                     <div className="absolute bottom-0 left-0 right-0 h-2/3 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+
+                    {/* Flagship badge */}
+                    {project.flagship && (
+                      <div className="absolute top-4 right-4 z-20">
+                        <span className="featured-badge text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full">
+                          ✦ In Development
+                        </span>
+                      </div>
+                    )}
 
                     <div className="absolute bottom-8 left-8 right-8">
                       <h3
@@ -570,30 +717,80 @@ export default function HomePage() {
                   {/* Project metadata */}
                   <div className="lg:w-64 space-y-6">
                     <div>
-                      <span className="text-xs text-text-primary/30 uppercase tracking-wider block mb-1">Year</span>
+                      <span className="text-xs text-text-primary/30 uppercase tracking-wider block mb-1">Period</span>
                       <span className="text-lg font-bold" style={{ fontFamily: 'var(--font-clash-display)' }}>
-                        {project.year}
+                        {project.period}
                       </span>
-                    </div>
-                    <div>
-                      <span className="text-xs text-text-primary/30 uppercase tracking-wider block mb-1">Role</span>
-                      <span className="text-sm text-text-primary/70">{project.role}</span>
                     </div>
                     <div>
                       <span className="text-xs text-text-primary/30 uppercase tracking-wider block mb-1">Description</span>
                       <span className="text-sm text-text-primary/50 leading-relaxed">{project.desc}</span>
                     </div>
+                    <div>
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-xs text-accent hover:text-accent/80 transition-colors duration-300 underline underline-offset-4 decoration-accent/30"
+                        data-cursor="interactive"
+                        data-cursor-label="GITHUB"
+                      >
+                        View on GitHub <span>↗</span>
+                      </a>
+                    </div>
                   </div>
                 </ParallaxCard>
               ))}
             </div>
+
+            {/* Web Design Projects Sub-section */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-100px' }}
+              transition={EASE_CINEMATIC}
+              className="mt-32"
+            >
+              <span className="text-xs text-accent/70 uppercase tracking-widest block mb-6">Web Design Projects</span>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {webProjects.map((wp, i) => (
+                  <motion.div
+                    key={wp.name}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ ...EASE_CINEMATIC, delay: i * 0.08 }}
+                    whileHover={{ y: -8 }}
+                    whileTap={{ scale: 0.96 }}
+                    className={`glass-card rounded-2xl p-6 ${i === 0 ? 'md:col-span-2' : ''}`}
+                  >
+                    <h4 className="text-base font-bold mb-2" style={{ fontFamily: 'var(--font-syne)' }}>
+                      {wp.name}
+                    </h4>
+                    <p className="text-xs text-text-primary/40 leading-relaxed">{wp.desc}</p>
+                  </motion.div>
+                ))}
+              </div>
+              <div className="mt-6">
+                <a
+                  href="https://github.com/NAVEENKCG"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-xs text-accent hover:text-accent/80 transition-colors duration-300 underline underline-offset-4 decoration-accent/30"
+                  data-cursor="interactive"
+                  data-cursor-label="GITHUB"
+                >
+                  View all on GitHub <span>↗</span>
+                </a>
+              </div>
+            </motion.div>
           </div>
         </section>
 
         {/* ════════════════════════════════════
-          TESTIMONIALS SECTION
+          CERTIFICATIONS SECTION
           ════════════════════════════════════ */}
-        <section id="testimonials" className="scroll-container py-24 md:py-40 px-6 md:px-10 bg-surface">
+        <section id="certifications" className="scroll-container py-24 md:py-40 px-6 md:px-10 bg-surface">
           <div className="max-w-[1400px] mx-auto">
             <motion.h2
               initial={{ opacity: 0, y: 40 }}
@@ -602,31 +799,33 @@ export default function HomePage() {
               transition={EASE_CINEMATIC}
               className="text-xs text-text-primary/20 uppercase tracking-wider mb-16 font-mono"
             >
-              What people say About me (Testimonials)
+              Certifications &amp; Training
             </motion.h2>
 
             <div className="space-y-0">
-              {testimonials.map((t, i) => (
+              {certifications.map((cert, i) => (
                 <motion.div
-                  key={t.name}
+                  key={cert.name}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: '-50px' }}
                   transition={{ ...EASE_CINEMATIC, delay: i * 0.1 }}
                   className="border-t border-white/[0.06] py-10 grid grid-cols-1 md:grid-cols-[100px_1fr] gap-6 group"
                   data-cursor="interactive"
-                  data-cursor-label="READ"
+                  data-cursor-label="CERT"
                 >
                   <span className="text-5xl font-light text-text-primary/10" style={{ fontFamily: 'var(--font-clash-display)' }}>
                     0{i + 1}.
                   </span>
                   <div>
-                    <h4 className="text-lg font-bold mb-1" style={{ fontFamily: 'var(--font-syne)' }}>
-                      {t.name}
-                    </h4>
-                    <p className="text-xs text-text-primary/40 mb-4">{t.role}</p>
-                    <p className="text-sm text-text-primary/50 leading-relaxed max-w-2xl group-hover:text-text-primary/70 transition-colors duration-500">
-                      &ldquo;{t.text}&rdquo;
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-lg">{cert.icon}</span>
+                      <h4 className="text-lg font-bold" style={{ fontFamily: 'var(--font-syne)' }}>
+                        {cert.name}
+                      </h4>
+                    </div>
+                    <p className="text-sm text-text-primary/40 group-hover:text-text-primary/60 transition-colors duration-500">
+                      Issued by {cert.issuer}
                     </p>
                   </div>
                 </motion.div>
@@ -639,43 +838,64 @@ export default function HomePage() {
         <CircuitWipe className="my-4" />
 
         {/* ════════════════════════════════════
-          SKILLS SECTION — wrapped in LazyMotion for mobile perf
+          SKILLS SECTION — Categorized Groups
           ════════════════════════════════════ */}
         <LazyMotion features={domAnimation} strict>
-          <section className="scroll-container py-24 md:py-32 px-6 md:px-10">
-            <div className="max-w-[1400px] mx-auto text-center">
+          <section id="skills" className="scroll-container py-24 md:py-32 px-6 md:px-10">
+            <div className="max-w-[1400px] mx-auto">
               <m.div
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={EASE_CINEMATIC}
+                className="mb-16"
               >
-                <h3 className="text-xs text-text-primary/20 uppercase tracking-wider mb-12 font-mono">
-                  Skills & Technologies
+                <h3 className="text-xs text-text-primary/20 uppercase tracking-wider mb-4 font-mono">
+                  Skills &amp; Technologies
                 </h3>
-                <div className="flex flex-wrap justify-center gap-3">
-                  {skills.map((skill, i) => (
-                    <m.span
-                      key={skill}
-                      initial={{ opacity: 0, scale: 0.8 }}
-                      whileInView={{ opacity: 1, scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.04, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                      whileHover={{ scale: 1.08, backgroundColor: 'var(--accent)', color: '#000', borderColor: 'var(--accent)' }}
-                      whileTap={{ scale: 0.96 }}
-                      className="text-xs px-5 py-3 glass-card rounded-full text-text-primary/50 cursor-none"
-                      style={{
-                        fontFamily: 'var(--font-syne)',
-                        transform: `rotate(${(i % 2 === 0 ? -1 : 1) * (Math.random() * 2 + 1)}deg)`,
-                      }}
-                      data-cursor="interactive"
-                      data-cursor-label="SKILL"
-                    >
-                      {skill}
-                    </m.span>
-                  ))}
-                </div>
+                <h2
+                  className="text-4xl md:text-6xl font-light tracking-[-0.03em]"
+                  style={{ fontFamily: 'var(--font-clash-display)' }}
+                >
+                  Technical Arsenal
+                </h2>
               </m.div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {skillGroups.map((group, gi) => (
+                  <m.div
+                    key={group.label}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ ...EASE_CINEMATIC, delay: gi * 0.06 }}
+                    className={`skill-group ${gi === 0 ? 'md:col-span-2 lg:col-span-2' : ''}`}
+                  >
+                    <h4 className="text-xs text-accent/70 uppercase tracking-widest mb-4 font-bold" style={{ fontFamily: 'var(--font-syne)' }}>
+                      {group.label}
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {group.skills.map((skill, si) => (
+                        <m.span
+                          key={skill}
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: si * 0.03, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                          whileHover={{ scale: 1.08, backgroundColor: 'var(--accent)', color: '#000', borderColor: 'var(--accent)' }}
+                          whileTap={{ scale: 0.96 }}
+                          className="text-xs px-4 py-2 glass-card rounded-full text-text-primary/50 cursor-none"
+                          style={{ fontFamily: 'var(--font-syne)' }}
+                          data-cursor="interactive"
+                          data-cursor-label="SKILL"
+                        >
+                          {skill}
+                        </m.span>
+                      ))}
+                    </div>
+                  </m.div>
+                ))}
+              </div>
             </div>
           </section>
         </LazyMotion>
@@ -693,15 +913,15 @@ export default function HomePage() {
               <div>
                 <h3 className="text-xs text-text-primary/30 uppercase tracking-wider mb-3 font-mono">Socials</h3>
                 <div className="space-y-2">
-                  <a href="https://linkedin.com/in/naveenraj-s-s-b94669" target="_blank" rel="noopener noreferrer" className="block text-sm text-text-primary/60 hover:text-text-primary transition-colors duration-300" data-cursor="interactive" data-cursor-label="OPEN">LinkedIn</a>
+                  <a href="https://www.linkedin.com/in/naveenraj-s-s-b94669327/" target="_blank" rel="noopener noreferrer" className="block text-sm text-text-primary/60 hover:text-text-primary transition-colors duration-300" data-cursor="interactive" data-cursor-label="OPEN">LinkedIn</a>
                   <a href="https://github.com/NAVEENKCG" target="_blank" rel="noopener noreferrer" className="block text-sm text-text-primary/60 hover:text-text-primary transition-colors duration-300" data-cursor="interactive" data-cursor-label="OPEN">GitHub</a>
                 </div>
               </div>
               <div>
                 <h3 className="text-xs text-text-primary/30 uppercase tracking-wider mb-3 font-mono">Contact me</h3>
                 <div className="space-y-2">
-                  <a href="mailto:rajn51174@gmail.com" className="block text-sm text-text-primary/60 hover:text-text-primary transition-colors duration-300" data-cursor="interactive" data-cursor-label="OPEN">Email</a>
-                  <a href="tel:+918248935147" className="block text-sm text-text-primary/60 hover:text-text-primary transition-colors duration-300" data-cursor="interactive" data-cursor-label="OPEN">Phone</a>
+                  <a href="mailto:rajn51174@gmail.com" className="block text-sm text-text-primary/60 hover:text-text-primary transition-colors duration-300" data-cursor="interactive" data-cursor-label="OPEN">rajn51174@gmail.com</a>
+                  <a href="tel:+918248935147" className="block text-sm text-text-primary/60 hover:text-text-primary transition-colors duration-300" data-cursor="interactive" data-cursor-label="OPEN">+91 82489 35147</a>
                 </div>
               </div>
             </div>
@@ -724,7 +944,7 @@ export default function HomePage() {
                   }}
                   className="text-sm text-text-primary/30"
                 >
-                  Got a project in mind?
+                  Looking for an internship opportunity?
                 </motion.p>
               </div>
 
@@ -737,7 +957,7 @@ export default function HomePage() {
                   className="text-3xl md:text-5xl font-light tracking-[-0.03em]"
                   style={{ fontFamily: 'var(--font-clash-display)' }}
                 >
-                  Let&apos;s make something happen together
+                  Let&apos;s build something incredible together
                 </motion.h2>
               </div>
 
@@ -750,7 +970,7 @@ export default function HomePage() {
                   className="text-sm md:text-base text-text-primary/40 leading-relaxed"
                   style={{ fontFamily: 'var(--font-clash-display)' }}
                 >
-                  As an engineer and innovator, I believe in pushing boundaries. Engineering is about serving real needs — dedicating yourself to finding the right balance between user needs and technical possibilities.
+                  As an ECE engineer and embedded systems enthusiast, I believe in pushing boundaries. Engineering is about solving real-world problems — dedicating yourself to finding the right balance between hardware constraints and innovative solutions.
                 </motion.p>
               </div>
             </motion.div>
@@ -801,8 +1021,15 @@ export default function HomePage() {
             {/* Copyright */}
             <div className="mt-20 pt-8 border-t border-white/[0.06] flex flex-col md:flex-row justify-between items-center gap-4">
               <span className="text-xs text-text-primary/20 font-mono">
-                © 2026 Naveenraj SS — All rights reserved
+                © 2026 Naveenraj S.S. — All rights reserved
               </span>
+              <div className="flex items-center gap-4">
+                <a href="https://github.com/NAVEENKCG" target="_blank" rel="noopener noreferrer" className="text-xs text-text-primary/20 hover:text-text-primary/40 transition-colors duration-300">GitHub</a>
+                <span className="text-text-primary/10">·</span>
+                <a href="https://www.linkedin.com/in/naveenraj-s-s-b94669327/" target="_blank" rel="noopener noreferrer" className="text-xs text-text-primary/20 hover:text-text-primary/40 transition-colors duration-300">LinkedIn</a>
+                <span className="text-text-primary/10">·</span>
+                <a href="mailto:rajn51174@gmail.com" className="text-xs text-text-primary/20 hover:text-text-primary/40 transition-colors duration-300">Email</a>
+              </div>
               <span className="text-xs text-text-primary/20">
                 ECE Engineer · Thiruchendur, Tamil Nadu
               </span>

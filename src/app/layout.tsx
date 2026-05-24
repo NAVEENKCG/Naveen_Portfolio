@@ -32,9 +32,15 @@ const syne = Syne({
 })
 
 export const metadata: Metadata = {
-  title: 'Naveenraj SS | ECE Engineer & Creative Developer',
+  title: 'Naveenraj S.S. | Electronics & Communication Engineer · Embedded Systems & PCB Designer',
   description:
-    'Portfolio of Naveenraj SS — Electronics & Communication Engineer, Full Stack Developer, and IoT innovator. Specializing in embedded systems, AI/ML, and modern web development.',
+    '2nd-year ECE student with hands-on experience in embedded systems and PCB design. Designed PCBs from schematic to Gerber output using KiCad and Altium. Developed IoT and AI-based embedded projects using ESP32, Embedded C, and TensorFlow Lite.',
+  openGraph: {
+    title: 'Naveenraj S.S. | ECE Engineer · Embedded Systems & PCB Designer',
+    description: 'Portfolio of Naveenraj S.S. — Electronics & Communication Engineer specializing in embedded systems, PCB design, IoT, and AI/ML.',
+    type: 'website',
+    locale: 'en_US',
+  },
 }
 
 export default function RootLayout({

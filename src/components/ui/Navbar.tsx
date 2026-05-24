@@ -6,13 +6,15 @@ import { MagneticButton } from '@/components/motion/MagneticButton'
 import { cn } from '@/lib/utils'
 
 const navLinks = [
-  { label: 'Index', href: '#hero' },
+  { label: 'Home', href: '#hero' },
   { label: 'About', href: '#about' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Contact', href: '#contact' },
 ]
 
 const socials = [
-  { label: 'li', href: 'https://linkedin.com/in/naveenraj-s-s-b94669' },
+  { label: 'li', href: 'https://www.linkedin.com/in/naveenraj-s-s-b94669327/' },
   { label: 'gh', href: 'https://github.com/NAVEENKCG' },
 ]
 
@@ -55,7 +57,7 @@ export function Navbar() {
             className="text-sm font-bold text-text-primary/50"
             style={{ fontFamily: 'var(--font-clash-display)' }}
           >
-            SS
+            S.S.
           </span>
         </div>
 
@@ -165,7 +167,7 @@ export function Navbar() {
               href="mailto:rajn51174@gmail.com"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
+              transition={{ delay: 0.5, duration: 0.5 }}
               className="mt-8 text-accent text-xl font-bold underline"
             >
               Let&apos;s talk!
