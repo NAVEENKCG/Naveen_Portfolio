@@ -250,7 +250,7 @@ export default function HomePage() {
           </motion.div>
 
           {/* Center — name and headline */}
-          <div className="flex-1 flex flex-col justify-center mt-16 md:mt-24">
+          <div className="flex-1 flex flex-col justify-center pt-32 md:pt-56">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
