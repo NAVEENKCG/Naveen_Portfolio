@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, useCallback } from 'react'
-import { motion, useScroll, useTransform, useSpring, useReducedMotion, LazyMotion, domAnimation, m } from 'framer-motion'
+import { motion, useScroll, useTransform, useReducedMotion, LazyMotion, domAnimation, m } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Image from 'next/image'
@@ -141,7 +141,7 @@ const skillGroups = [
 export default function HomePage() {
   const prefersReducedMotion = useReducedMotion()
   const [currentWord, setCurrentWord] = useState(0)
-  const [greeting, setGreeting] = useState('Good morning!')
+  const [greeting, setGreeting] = useState('Good morning,')
   const heroRef = useRef<HTMLElement>(null)
   const statsRef = useRef<HTMLDivElement>(null)
 
@@ -150,17 +150,17 @@ export default function HomePage() {
     target: heroRef,
     offset: ['start start', 'end start'],
   })
-  const smoothHeroProgress = useSpring(heroScrollProgress, SPRING_SCROLL)
   // Hero image: scale down + fade out as content floor rises
-  const heroScale = useTransform(smoothHeroProgress, [0, 0.3, 0.7, 1], [1, 0.98, 0.95, 0.9])
-  const heroOpacity = useTransform(smoothHeroProgress, [0, 0.5, 1], [1, 0.5, 0])
+  // Using raw useTransform (no useSpring) to avoid continuous RAF ticks that cause scroll jank
+  const heroScale = useTransform(heroScrollProgress, [0, 0.3, 0.7, 1], [1, 0.98, 0.95, 0.9])
+  const heroOpacity = useTransform(heroScrollProgress, [0, 0.5, 1], [1, 0.5, 0])
 
   // Dynamic greeting
   useEffect(() => {
     const hour = new Date().getHours()
-    if (hour < 12) setGreeting('Good morning!')
-    else if (hour < 18) setGreeting('Good afternoon!')
-    else setGreeting('Good evening!')
+    if (hour < 12) setGreeting('Good morning,')
+    else if (hour < 18) setGreeting('Good afternoon,')
+    else setGreeting('Good evening,')
   }, [])
 
   // Rotating words
@@ -228,7 +228,7 @@ export default function HomePage() {
             src="/hero-new.jpg"
             alt="Naveenraj S.S. — Electronics & Communication Engineer"
             fill
-            className="object-cover object-center lg:translate-x-[15%] brightness-110"
+            className="object-cover object-[center_25%] lg:translate-x-[15%] brightness-110"
             priority
             quality={90}
             sizes="(max-width: 668px) 100vw, 90vw"
@@ -244,20 +244,20 @@ export default function HomePage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 3.5, duration: 0.6 }}
-            className="flex justify-between items-start"
+            className="flex justify-between items-start min-h-[20px]"
           >
-            <span className="text-xs text-text-primary/40 font-mono">{greeting}</span>
+            {/* Empty space to maintain justify-between layout */}
           </motion.div>
 
           {/* Center — name and headline */}
-          <div className="flex-1 flex flex-col justify-center pt-32 md:pt-56">
+          <div className="flex-1 flex flex-col justify-center pt-16 md:pt-24">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 3.2, ...EASE_CINEMATIC }}
               className="mb-4"
             >
-              <span className="text-xs text-text-primary/40">Hi there! this is</span>
+              <span className="text-xs text-text-primary/40 font-mono">{greeting} Hi there! this is</span>
               <div className="flex items-baseline gap-3 mt-1">
                 <span
                   className="text-sm md:text-base font-bold text-text-primary"

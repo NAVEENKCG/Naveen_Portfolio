@@ -91,14 +91,7 @@ button {
   height: 0;
 }
 
-/* ════════════════════════════════════════════
-   GRAIN FILTER
-   ════════════════════════════════════════════ */
-#grain-filter {
-  position: fixed;
-  width: 0;
-  height: 0;
-}
+/* Removed — Grain component no longer uses SVG filter */
 
 /* ════════════════════════════════════════════
    GLASS CARD SYSTEM
@@ -109,11 +102,12 @@ button {
 .glass-card {
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.10);
   border-radius: 1rem;
   position: relative;
+  contain: layout style paint;
 }
 
 .glass-card:hover {
@@ -237,11 +231,12 @@ button {
 .skill-group {
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   border-radius: 1.5rem;
   padding: 1.5rem;
+  contain: layout style paint;
 }
 
 .skill-group:hover {

@@ -12,7 +12,9 @@ export function CustomCursor() {
     const label = labelRef.current
     if (!dot || !label) return
 
-    // Ensure dot is perfectly centered and hidden until mouse moves
+    // Skip on mobile — no custom cursor needed
+    if (window.innerWidth < 768) return
+
     gsap.set(dot, { xPercent: -50, yPercent: -50, opacity: 0 })
 
     const xTo = gsap.quickTo(dot, "x", { duration: 0.15, ease: "power3" })
@@ -29,44 +31,41 @@ export function CustomCursor() {
       yTo(e.clientY)
     }
 
-    const addInteractive = () => {
-      document.querySelectorAll('[data-cursor]').forEach((el) => {
-        const htmlEl = el as HTMLElement
-        // Remove old listeners to prevent duplicates
-        htmlEl.onmouseenter = null
-        htmlEl.onmouseleave = null
+    /* Event delegation — eliminates the expensive MutationObserver + querySelectorAll
+       that was triggering on every Framer Motion style update during scroll */
+    const onMouseOver = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('[data-cursor]') as HTMLElement | null
+      if (!target) return
+      const type = target.dataset.cursor
+      const cursorLabel = target.dataset.cursorLabel || 'VIEW'
+      if (type === 'interactive') {
+        gsap.to(dot, { width: 80, height: 80, backgroundColor: 'var(--accent)', duration: 0.3, ease: 'power2.out' })
+        label.textContent = cursorLabel
+        gsap.to(label, { opacity: 1, duration: 0.2 })
+      } else if (type === 'text') {
+        gsap.to(dot, { width: 4, height: 4, backgroundColor: 'var(--accent)', duration: 0.3 })
+      }
+    }
 
-        htmlEl.onmouseenter = () => {
-          const type = htmlEl.dataset.cursor
-          const cursorLabel = htmlEl.dataset.cursorLabel || 'VIEW'
-          if (type === 'interactive') {
-            gsap.to(dot, { width: 80, height: 80, backgroundColor: 'var(--accent)', duration: 0.3, ease: 'power2.out' })
-            label.textContent = cursorLabel
-            gsap.to(label, { opacity: 1, duration: 0.2 })
-          } else if (type === 'text') {
-            gsap.to(dot, { width: 4, height: 4, backgroundColor: 'var(--accent)', duration: 0.3 })
-          }
-        }
-        htmlEl.onmouseleave = () => {
-          gsap.to(dot, { width: 12, height: 12, backgroundColor: 'var(--accent)', duration: 0.3, ease: 'power2.out' })
-          label.textContent = ''
-          gsap.to(label, { opacity: 0, duration: 0.2 })
-        }
-      })
+    const onMouseOut = (e: MouseEvent) => {
+      const target = (e.target as HTMLElement).closest('[data-cursor]') as HTMLElement | null
+      if (!target) return
+      // Only reset if we're leaving the [data-cursor] element entirely
+      const related = e.relatedTarget as HTMLElement | null
+      if (related && target.contains(related)) return
+      gsap.to(dot, { width: 12, height: 12, backgroundColor: 'var(--accent)', duration: 0.3, ease: 'power2.out' })
+      label.textContent = ''
+      gsap.to(label, { opacity: 0, duration: 0.2 })
     }
 
     document.addEventListener('mousemove', onMouseMove)
-
-    const timeout = setTimeout(addInteractive, 1000)
-    const observer = new MutationObserver(() => {
-      setTimeout(addInteractive, 200)
-    })
-    observer.observe(document.body, { childList: true, subtree: true })
+    document.addEventListener('mouseover', onMouseOver)
+    document.addEventListener('mouseout', onMouseOut)
 
     return () => {
       document.removeEventListener('mousemove', onMouseMove)
-      clearTimeout(timeout)
-      observer.disconnect()
+      document.removeEventListener('mouseover', onMouseOver)
+      document.removeEventListener('mouseout', onMouseOut)
     }
   }, [])
 
@@ -85,3 +84,4 @@ export function CustomCursor() {
     </>
   )
 }
+
