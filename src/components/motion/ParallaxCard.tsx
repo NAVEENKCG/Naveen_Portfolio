@@ -18,7 +18,10 @@ interface ParallaxCardProps {
   tiltIntensity?: number
   parallaxRange?: number 
   glowColor?: string
-  as?: 'div' | 'article'
+  as?: 'div' | 'article' | 'a'
+  href?: string
+  target?: string
+  rel?: string
 }
 
 export function ParallaxCard({
@@ -27,6 +30,9 @@ export function ParallaxCard({
   tiltIntensity = 15,
   glowColor = 'rgba(255,77,0,0.08)',
   as = 'div',
+  href,
+  target,
+  rel,
 }: ParallaxCardProps) {
   const prefersReducedMotion = useReducedMotion()
   const cardRef = useRef<HTMLDivElement>(null)
@@ -65,13 +71,14 @@ export function ParallaxCard({
     mouseY.set(0.5)
   }
 
-  const MotionTag = as === 'article' ? motion.article : motion.div
+  const MotionTag = as === 'article' ? motion.article : as === 'a' ? motion.a : motion.div
+  const linkProps = as === 'a' ? { href, target, rel } : {}
 
   // Reduced motion: opacity fade only, no transforms
   if (prefersReducedMotion) {
     return (
       <MotionTag
-        ref={cardRef}
+        ref={cardRef as any}
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true, margin: '-100px' }}
@@ -79,6 +86,7 @@ export function ParallaxCard({
         className={cn('relative', className)}
         data-cursor="interactive"
         data-cursor-label="VIEW"
+        {...linkProps}
       >
         {children}
       </MotionTag>
@@ -87,7 +95,7 @@ export function ParallaxCard({
 
   return (
     <MotionTag
-      ref={cardRef}
+      ref={cardRef as any}
       style={{
         rotateX: springRotateX,
         rotateY: springRotateY,
@@ -104,6 +112,7 @@ export function ParallaxCard({
       className={cn('relative', className)}
       data-cursor="interactive"
       data-cursor-label="VIEW"
+      {...linkProps}
     >
       {/* Mouse-tracking glow overlay */}
       <motion.div
