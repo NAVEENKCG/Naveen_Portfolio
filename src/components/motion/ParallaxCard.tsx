@@ -35,7 +35,7 @@ export function ParallaxCard({
   rel,
 }: ParallaxCardProps) {
   const prefersReducedMotion = useReducedMotion()
-  const cardRef = useRef<HTMLDivElement>(null)
+  const cardRef = useRef<HTMLElement>(null)
 
   // ── Mouse 3D tilt (no scroll dependency) ──
   const mouseX = useMotionValue(0.5)
@@ -52,7 +52,7 @@ export function ParallaxCard({
 
   const glowTemplate = useMotionTemplate`radial-gradient(400px circle at ${pixelMouseX}px ${pixelMouseY}px, ${glowColor}, transparent 70%)`
 
-  const handleMouseMove = throttle((e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = throttle((e: React.MouseEvent<HTMLElement>) => {
     if (typeof window !== 'undefined' && window.innerWidth < 768) return
     const rect = cardRef.current?.getBoundingClientRect()
     if (!rect) return
