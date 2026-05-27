@@ -100,6 +100,18 @@ export function Navbar() {
               )}
             </span>
           ))}
+          <span className="text-text-primary/20 text-xs">/</span>
+          <a
+            href="/Naveenraj_Resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-text-primary/60 hover:text-text-primary transition-colors duration-300"
+            data-cursor="interactive"
+            data-cursor-label="VIEW"
+          >
+            Resume
+          </a>
+          <span className="text-text-primary/20 text-xs">/</span>
           <MagneticButton
             as="a"
             href="mailto:rajn51174@gmail.com"
@@ -164,10 +176,26 @@ export function Navbar() {
               </motion.button>
             ))}
             <motion.a
+              href="/Naveenraj_Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ delay: navLinks.length * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="flex items-baseline gap-4 py-4 border-b border-white/[0.06] text-left"
+              style={{ fontFamily: 'var(--font-clash-display)' }}
+            >
+              <span className="font-mono text-xs text-accent">0{navLinks.length + 1}</span>
+              <span className="text-4xl md:text-5xl font-light text-text-primary">
+                Resume
+              </span>
+            </motion.a>
+            <motion.a
               href="mailto:rajn51174@gmail.com"
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
+              transition={{ delay: (navLinks.length + 1) * 0.1, duration: 0.5 }}
               className="mt-8 text-accent text-xl font-bold underline"
             >
               Let&apos;s talk!
