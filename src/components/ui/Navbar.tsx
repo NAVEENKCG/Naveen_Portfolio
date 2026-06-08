@@ -102,7 +102,7 @@ export function Navbar() {
           ))}
           <span className="text-text-primary/20 text-xs">/</span>
           <a
-            href="/Naveenraj_Resume.pdf"
+            href="/Naveenraj_Resume_portfolio.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-text-primary/60 hover:text-text-primary transition-colors duration-300"
@@ -176,7 +176,7 @@ export function Navbar() {
               </motion.button>
             ))}
             <motion.a
-              href="/Naveenraj_Resume.pdf"
+              href="/Naveenraj_Resume_portfolio.pdf"
               target="_blank"
               rel="noopener noreferrer"
               initial={{ opacity: 0, y: 40 }}
