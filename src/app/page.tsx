@@ -978,27 +978,31 @@ export default function HomePage() {
             {/* Email marquee */}
             <div className="overflow-hidden mb-16 pause-on-hover flex border-y border-white/[0.03] py-4 bg-surface/20 whitespace-nowrap relative" data-cursor="interactive" data-cursor-label="SAY HI">
               <div className="flex shrink-0 animate-marquee-left will-change-transform">
-                {[...Array(8)].map((_, i) => (
-                  <a
-                    key={`a-${i}`}
-                    href="mailto:rajn51174@gmail.com"
-                    className="text-[clamp(2.5rem,8vw,6rem)] font-light tracking-[-0.03em] text-text-primary hover:text-accent transition-colors duration-300 px-8"
-                    style={{ fontFamily: 'var(--font-clash-display)' }}
-                  >
-                    rajn51174@gmail.com
-                  </a>
+                {[...Array(4)].map((_, i) => (
+                  <span key={`a-${i}`} className="flex items-center gap-12 pr-12">
+                    <a
+                      href="mailto:rajn51174@gmail.com"
+                      className="text-[clamp(2.5rem,8vw,6rem)] font-light tracking-[-0.03em] text-text-primary hover:text-accent transition-colors duration-300"
+                      style={{ fontFamily: 'var(--font-clash-display)' }}
+                    >
+                      rajn51174@gmail.com
+                    </a>
+                    <span className="text-accent/50 text-2xl md:text-4xl">✦</span>
+                  </span>
                 ))}
               </div>
               <div className="flex shrink-0 animate-marquee-left will-change-transform">
-                {[...Array(8)].map((_, i) => (
-                  <a
-                    key={`b-${i}`}
-                    href="mailto:rajn51174@gmail.com"
-                    className="text-[clamp(2.5rem,8vw,6rem)] font-light tracking-[-0.03em] text-text-primary hover:text-accent transition-colors duration-300 px-8"
-                    style={{ fontFamily: 'var(--font-clash-display)' }}
-                  >
-                    rajn51174@gmail.com
-                  </a>
+                {[...Array(4)].map((_, i) => (
+                  <span key={`b-${i}`} className="flex items-center gap-12 pr-12">
+                    <a
+                      href="mailto:rajn51174@gmail.com"
+                      className="text-[clamp(2.5rem,8vw,6rem)] font-light tracking-[-0.03em] text-text-primary hover:text-accent transition-colors duration-300"
+                      style={{ fontFamily: 'var(--font-clash-display)' }}
+                    >
+                      rajn51174@gmail.com
+                    </a>
+                    <span className="text-accent/50 text-2xl md:text-4xl">✦</span>
+                  </span>
                 ))}
               </div>
             </div>
