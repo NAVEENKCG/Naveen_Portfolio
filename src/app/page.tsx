@@ -225,13 +225,13 @@ export default function HomePage() {
           style={{ scale: heroScale, opacity: heroOpacity }}
         >
           <Image
-            src="/hero-new.jpg"
+            src="/hero-new.png"
             alt="Naveenraj S.S. — Electronics & Communication Engineer"
             fill
-            className="object-cover object-[center_25%] lg:translate-x-[15%] brightness-110"
+            className="object-cover object-[center_20%] lg:object-[55%_20%] brightness-110"
             priority
-            quality={90}
-            sizes="(max-width: 668px) 100vw, 90vw"
+            quality={95}
+            sizes="100vw"
           />
           {/* Gradient overlays — only on left side for text readability, right side stays bright */}
           <div className="absolute inset-0 bg-gradient-to-r from-base from-10% via-base/50 via-40% to-transparent to-70%" />

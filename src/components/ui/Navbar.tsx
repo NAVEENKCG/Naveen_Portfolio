@@ -41,20 +41,20 @@ export function Navbar() {
           'fixed top-0 left-0 right-0 h-16 z-40 flex items-center justify-between px-6 md:px-10 transition-all duration-300',
           'backdrop-blur-2xl',
           scrolled
-            ? 'bg-black/40 border-b border-white/[0.06]'
-            : 'bg-transparent border-b border-transparent'
+            ? 'bg-black/80 border-b border-white/10 shadow-lg'
+            : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent border-b border-white/[0.04]'
         )}
       >
         {/* Left: Name */}
         <div className="flex items-center gap-3">
           <span
-            className="text-sm font-bold text-text-primary"
+            className="text-sm sm:text-base font-bold text-text-primary drop-shadow-sm"
             style={{ fontFamily: 'var(--font-clash-display)' }}
           >
             Naveenraj
           </span>
           <span
-            className="text-sm font-bold text-text-primary/50"
+            className="text-sm sm:text-base font-bold text-text-primary/80 drop-shadow-sm"
             style={{ fontFamily: 'var(--font-clash-display)' }}
           >
             S.S.
@@ -62,62 +62,63 @@ export function Navbar() {
         </div>
 
         {/* Center: Socials */}
-        <div className="hidden md:flex items-center gap-2 text-xs text-text-primary/40">
-          <span className="text-text-primary/60">Socials</span>
-          <span>/</span>
-          {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-text-primary transition-colors duration-300"
-              data-cursor="interactive"
-              data-cursor-label="OPEN"
-            >
-              {s.label}
-            </a>
+        <div className="hidden md:flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-semibold text-text-primary tracking-wide">
+          <span className="text-text-primary font-bold drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">Socials</span>
+          <span className="text-accent font-normal">/</span>
+          {socials.map((s, idx) => (
+            <span key={s.label} className="flex items-center gap-2 sm:gap-3">
+              <a
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-text-primary hover:text-accent font-bold uppercase transition-colors duration-300 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
+                data-cursor="interactive"
+                data-cursor-label="OPEN"
+              >
+                {s.label}
+              </a>
+              {idx < socials.length - 1 && (
+                <span className="text-accent/60 font-light">/</span>
+              )}
+            </span>
           ))}
         </div>
 
         {/* Right: Nav links + CTA */}
-        <div className="hidden md:flex items-center gap-6">
+        <div className="hidden md:flex items-center gap-5 sm:gap-6">
           {navLinks.map((link, i) => (
-            <span key={link.label} className="flex items-center gap-6">
+            <span key={link.label} className="flex items-center gap-5 sm:gap-6">
               <button
                 onClick={() => scrollTo(link.href)}
-                className={cn(
-                  'text-xs text-text-primary/60 hover:text-text-primary transition-colors duration-300 relative',
-                  i === 0 && 'text-text-primary'
-                )}
+                className="text-xs sm:text-sm font-semibold text-text-primary hover:text-accent transition-colors duration-300 relative drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
                 data-cursor="interactive"
                 data-cursor-label="GO"
               >
                 {link.label}
               </button>
               {i < navLinks.length - 1 && (
-                <span className="text-text-primary/20 text-xs">/</span>
+                <span className="text-accent/60 font-light text-xs sm:text-sm">/</span>
               )}
             </span>
           ))}
-          <span className="text-text-primary/20 text-xs">/</span>
+          <span className="text-accent/60 font-light text-xs sm:text-sm">/</span>
           <a
             href="/Naveenraj_Resume_portfolio.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs text-text-primary/60 hover:text-text-primary transition-colors duration-300"
+            className="text-xs sm:text-sm font-semibold text-text-primary hover:text-accent transition-colors duration-300 drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]"
             data-cursor="interactive"
             data-cursor-label="VIEW"
           >
             Resume
           </a>
-          <span className="text-text-primary/20 text-xs">/</span>
+          <span className="text-accent/60 font-light text-xs sm:text-sm">/</span>
           <MagneticButton
             as="a"
             href="mailto:rajn51174@gmail.com"
             className="inline-block"
           >
-            <span className="text-xs font-bold text-accent hover:text-accent/80 transition-colors duration-300 underline underline-offset-4 decoration-accent/30">
+            <span className="text-xs sm:text-sm font-bold text-accent hover:text-accent/80 transition-colors duration-300 underline underline-offset-4 decoration-accent">
               Let&apos;s talk!
             </span>
           </MagneticButton>
