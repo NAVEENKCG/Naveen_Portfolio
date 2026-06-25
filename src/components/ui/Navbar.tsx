@@ -46,18 +46,18 @@ export function Navbar() {
         )}
       >
         {/* Left: Name */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <span
-            className="text-sm sm:text-base font-bold text-text-primary drop-shadow-sm"
-            style={{ fontFamily: 'var(--font-clash-display)' }}
+            className="text-sm sm:text-base font-bold text-text-primary drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] tracking-wide"
+            style={{ color: '#ffffff', fontFamily: 'var(--font-clash-display)' }}
           >
             Naveenraj
           </span>
           <span
-            className="text-sm sm:text-base font-bold text-text-primary/80 drop-shadow-sm"
-            style={{ fontFamily: 'var(--font-clash-display)' }}
+            className="text-sm sm:text-base font-bold text-text-primary drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)] tracking-wide"
+            style={{ color: '#f0ece4', fontFamily: 'var(--font-clash-display)' }}
           >
-            S.S.
+            S.S
           </span>
         </div>
 

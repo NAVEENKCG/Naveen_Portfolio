@@ -226,19 +226,19 @@ export default function HomePage() {
         >
           <Image
             src="/hero-new.png"
-            alt="Naveenraj S.S. — Electronics & Communication Engineer"
+            alt="Naveenraj S.S — Electronics & Communication Engineer"
             fill
-            className="object-cover object-[center_20%] lg:object-[55%_20%] brightness-110"
+            className="object-cover object-[center_top] lg:object-[60%_top] brightness-125"
             priority
             quality={95}
             sizes="100vw"
           />
           {/* Gradient overlays — only on left side for text readability, right side stays bright */}
-          <div className="absolute inset-0 bg-gradient-to-r from-base from-10% via-base/50 via-40% to-transparent to-70%" />
-          <div className="absolute inset-0 bg-gradient-to-t from-base/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-base/90 from-5% via-base/30 via-35% to-transparent to-60%" />
+          <div className="absolute inset-0 bg-gradient-to-t from-base/60 via-transparent to-transparent" />
         </motion.div>
 
-        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-10 min-h-screen flex flex-col justify-between py-24 md:py-28">
+        <div className="relative z-10 w-full max-w-[1400px] mx-auto px-2 md:px-4 min-h-screen flex flex-col justify-between py-24 md:py-28">
           {/* Top row */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -260,16 +260,16 @@ export default function HomePage() {
               <span className="text-xs text-text-primary/40 font-mono">{greeting} Hi there! this is</span>
               <div className="flex items-baseline gap-3 mt-1">
                 <span
-                  className="text-sm md:text-base font-bold text-text-primary"
-                  style={{ fontFamily: 'var(--font-clash-display)' }}
+                  className="text-sm md:text-base font-bold text-text-primary drop-shadow-md"
+                  style={{ color: '#ffffff', fontFamily: 'var(--font-clash-display)' }}
                 >
                   Naveenraj
                 </span>
                 <span
-                  className="text-sm md:text-base font-bold text-text-primary/50"
-                  style={{ fontFamily: 'var(--font-clash-display)' }}
+                  className="text-sm md:text-base font-bold text-text-primary drop-shadow-md"
+                  style={{ color: '#f0ece4', fontFamily: 'var(--font-clash-display)' }}
                 >
-                  S.S.
+                  S.S
                 </span>
               </div>
             </motion.div>
@@ -282,21 +282,21 @@ export default function HomePage() {
               className="overflow-hidden"
             >
               <h1
-                className="text-[clamp(2.5rem,8vw,8rem)] md:text-[clamp(4rem,10vw,10rem)] leading-[0.9] tracking-[-0.04em] uppercase"
+                className="text-[clamp(2.5rem,7vw,7rem)] md:text-[clamp(3.5rem,8vw,8rem)] leading-[0.9] tracking-[-0.04em] uppercase"
                 style={{ fontFamily: 'var(--font-clash-display)', fontVariationSettings: '"wght" 800' }}
               >
                 <span className="block text-text-primary">ENGINEER</span>
                 <span className="block text-text-primary">THE FUTURE</span>
               </h1>
               {/* Rotating word */}
-              <div className="slide-text-wrap mt-2 overflow-hidden h-[clamp(2.5rem,8vw,8rem)] md:h-[clamp(4rem,10vw,10rem)]" style={{ fontFamily: 'var(--font-clash-display)' }}>
+              <div className="slide-text-wrap mt-2 overflow-hidden h-[clamp(2.5rem,7vw,7rem)] md:h-[clamp(3.5rem,8vw,8rem)]" style={{ fontFamily: 'var(--font-clash-display)' }}>
                 <motion.span
                   key={currentWord}
                   initial={{ y: '100%', rotateX: -90 }}
                   animate={{ y: '0%', rotateX: 0 }}
                   exit={{ y: '-100%', rotateX: 90 }}
                   transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                  className="slide-text-item block text-[clamp(2.5rem,8vw,8rem)] md:text-[clamp(4rem,10vw,10rem)] leading-[0.9] text-accent uppercase"
+                  className="slide-text-item block text-[clamp(2.5rem,7vw,7rem)] md:text-[clamp(3.5rem,8vw,8rem)] leading-[0.9] text-accent uppercase"
                   style={{ fontVariationSettings: '"wght" 800' }}
                 >
                   {rotatingWords[currentWord]}
@@ -336,7 +336,7 @@ export default function HomePage() {
             </div>
 
             {/* Bio text */}
-            <div className="max-w-sm text-right">
+            <div className="max-w-xs text-right mr-0 md:-mr-4">
               <p className="text-xs md:text-sm text-text-primary/50 leading-relaxed">
                 Electronics &amp; Communication Engineer · Embedded Systems &amp; PCB Designer. Passionate about R&amp;D in embedded systems, IoT, and AI-based solutions.
               </p>
@@ -403,8 +403,8 @@ export default function HomePage() {
                   }}
                   className="mb-12"
                 >
-                  <p className="text-2xl md:text-[2.5rem] leading-[1.3] tracking-[-0.02em] text-text-primary/80 mb-8" style={{ fontFamily: 'var(--font-clash-display)', fontWeight: 300 }}>
-                    {`2nd-year ECE student with hands-on experience in embedded systems and PCB design. Designed PCBs from schematic to Gerber output using KiCad and Altium.`.split(' ').map((word, i) => (
+                  <p className="text-xl md:text-[2.2rem] leading-[1.35] tracking-[-0.02em] text-text-primary/90 mb-8" style={{ fontFamily: 'var(--font-clash-display)', fontWeight: 300 }}>
+                    {`I'm Naveenraj S.S, a 3rd-year Electronics & Communication Engineering student at KCG College of Technology, Chennai, passionate about building systems that bridge the gap between hardware and intelligence.`.split(' ').map((word, i) => (
                       <span key={`w1-${i}`} className="inline-block mr-[0.3em] overflow-hidden">
                         <motion.span
                           variants={{
@@ -418,9 +418,24 @@ export default function HomePage() {
                       </span>
                     ))}
                   </p>
-                  <p className="text-2xl md:text-[2.5rem] leading-[1.3] tracking-[-0.02em] text-text-primary/50" style={{ fontFamily: 'var(--font-clash-display)', fontWeight: 300 }}>
-                    {`Developed IoT and AI-based embedded projects using ESP32, Embedded C, and TensorFlow Lite. Passionate about R&D in embedded systems.`.split(' ').map((word, i) => (
+                  <p className="text-xl md:text-[2.2rem] leading-[1.35] tracking-[-0.02em] text-text-primary/70 mb-8" style={{ fontFamily: 'var(--font-clash-display)', fontWeight: 300 }}>
+                    {`I design embedded systems end-to-end — from PCB schematics to firmware to on-device AI inference. Whether it's a brain-computer interface, an RF detection system, or a real-time IoT dashboard, I build the full stack: hardware, firmware, and the software layer on top.`.split(' ').map((word, i) => (
                       <span key={`w2-${i}`} className="inline-block mr-[0.3em] overflow-hidden">
+                        <motion.span
+                          variants={{
+                            hidden: { y: '100%' },
+                            visible: { y: '0%', transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } }
+                          }}
+                          className="inline-block"
+                        >
+                          {word}
+                        </motion.span>
+                      </span>
+                    ))}
+                  </p>
+                  <p className="text-xl md:text-[2.2rem] leading-[1.35] tracking-[-0.02em] text-text-primary/50" style={{ fontFamily: 'var(--font-clash-display)', fontWeight: 300 }}>
+                    {`Currently open to short-term internships in embedded R&D, PCB design, and product engineering.`.split(' ').map((word, i) => (
+                      <span key={`w3-${i}`} className="inline-block mr-[0.3em] overflow-hidden">
                         <motion.span
                           variants={{
                             hidden: { y: '100%' },
