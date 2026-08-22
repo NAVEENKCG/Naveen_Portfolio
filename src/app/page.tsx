@@ -27,7 +27,7 @@ const education = {
   college: 'KCG College of Technology, Chennai',
   duration: 'Sep 2024 – Present',
   status: 'Semester 3',
-  cgpa: '8.34 / 10.00',
+  cgpa: '7.96 / 10.00',
 }
 
 const experience = {
