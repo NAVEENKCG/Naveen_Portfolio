@@ -54,6 +54,10 @@ export default function RootLayout({
       className={`dark ${dmSans.variable} ${spaceMono.variable} ${syne.variable}`}
     >
       <head>
+        {/* Security meta tags */}
+        <meta name="robots" content="index, follow" />
+        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+
         {/* Preconnect to font CDNs for faster LCP */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -65,17 +69,6 @@ export default function RootLayout({
         <link
           href="https://api.fontshare.com/v2/css?f[]=clash-display@200,300,400,500,600,700&display=swap"
           rel="stylesheet"
-        />
-        <style
-          dangerouslySetInnerHTML={{
-            __html: `
-              :root {
-                --font-syne: 'Syne', system-ui, sans-serif;
-                --font-clash-display: 'Clash Display', system-ui, sans-serif;
-                --font-cormorant: 'Cormorant Garamond', serif;
-              }
-            `,
-          }}
         />
       </head>
       <body

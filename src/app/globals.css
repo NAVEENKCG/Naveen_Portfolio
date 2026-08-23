@@ -18,6 +18,11 @@
   --glass-border: rgba(255, 255, 255, 0.08);
   --mouse-x: 50%;
   --mouse-y: 50%;
+
+  /* Font families — moved from layout.tsx dangerouslySetInnerHTML */
+  --font-syne: 'Syne', system-ui, sans-serif;
+  --font-clash-display: 'Clash Display', system-ui, sans-serif;
+  --font-cormorant: 'Cormorant Garamond', serif;
 }
 
 /* ════════════════════════════════════════════

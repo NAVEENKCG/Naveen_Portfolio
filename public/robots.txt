@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Block sensitive paths
+Disallow: /.env
+Disallow: /.git
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin
+
+# Sitemap (update with your domain when deployed)
+# Sitemap: https://yourdomain.com/sitemap.xml
