@@ -26,8 +26,8 @@ const education = {
   degree: 'B.E. — Electronics & Communication Engineering',
   college: 'KCG College of Technology, Chennai',
   duration: 'Sep 2024 – Present',
-  status: 'Semester 3',
-  cgpa: '7.96 / 10.00',
+  status: 'Semester 4',
+  cgpa: '8.15 / 10.00',
 }
 
 const experience = {
