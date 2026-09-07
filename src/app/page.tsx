@@ -404,7 +404,7 @@ export default function HomePage() {
                   className="mb-12"
                 >
                   <p className="text-xl md:text-[2.2rem] leading-[1.35] tracking-[-0.02em] text-text-primary/90 mb-8" style={{ fontFamily: 'var(--font-clash-display)', fontWeight: 300 }}>
-                    {`I'm Naveenraj S.S, a 3rd-year Electronics & Communication Engineering student at KCG College of Technology, Chennai, passionate about building systems that bridge the gap between hardware and intelligence.`.split(' ').map((word, i) => (
+                    {`I'm Naveenraj S.S, an ECE student at KCG College of Technology, bridging the gap between hardware and intelligence.`.split(' ').map((word, i) => (
                       <span key={`w1-${i}`} className="inline-block mr-[0.3em] overflow-hidden">
                         <motion.span
                           variants={{
@@ -419,7 +419,7 @@ export default function HomePage() {
                     ))}
                   </p>
                   <p className="text-xl md:text-[2.2rem] leading-[1.35] tracking-[-0.02em] text-text-primary/70 mb-8" style={{ fontFamily: 'var(--font-clash-display)', fontWeight: 300 }}>
-                    {`I design embedded systems end-to-end — from PCB schematics to firmware to on-device AI inference. Whether it's a brain-computer interface, an RF detection system, or a real-time IoT dashboard, I build the full stack: hardware, firmware, and the software layer on top.`.split(' ').map((word, i) => (
+                    {`I design embedded systems end-to-end — from PCB schematics to on-device AI inference, building the full stack across hardware, firmware, and software.`.split(' ').map((word, i) => (
                       <span key={`w2-${i}`} className="inline-block mr-[0.3em] overflow-hidden">
                         <motion.span
                           variants={{
