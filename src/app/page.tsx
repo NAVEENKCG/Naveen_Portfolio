@@ -367,16 +367,34 @@ export default function HomePage() {
                   Affiliations &amp; Experience
                 </h3>
                 <div className="grid grid-cols-2 lg:grid-cols-3 gap-4">
-                  {['KCG College', 'BSNL', 'GUVI/HCL', 'Young Tech', 'SCIFEST', 'Hackathonix'].map((logo, i) => (
+                  {[
+                    { name: 'KCG College', src: '/logo_kcg.jpg' },
+                    { name: 'BSNL', src: '/logo_bsnl.jpg' },
+                    { name: 'GUVI/HCL', src: '/logo_guvi.jpg' },
+                    { name: 'Young Tech', src: '/logo_youngtech.jpg' },
+                    { name: 'SCIFEST', src: '/logo_scifest.jpg' },
+                    { name: 'Hackathonix', src: '/logo_hackathonix.jpg' }
+                  ].map((logo, i) => (
                     <div
-                      key={logo}
-                      className="glass-card aspect-[4/3] flex items-center justify-center p-6 rounded-2xl hover:bg-white/[0.07] hover:border-white/[0.18] transition-colors duration-300 relative overflow-hidden group"
+                      key={logo.name}
+                      className="glass-card aspect-[4/3] flex items-center justify-center rounded-2xl hover:bg-white/[0.07] hover:border-white/[0.18] transition-colors duration-300 relative overflow-hidden group"
+                      title={logo.name}
                     >
                       <div
                         className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-500"
                         style={{ background: `linear-gradient(${135 + i * 45}deg, var(--accent) 0%, transparent 100%)` }}
                       />
-                      <span className="text-sm text-text-primary/90 text-center font-bold tracking-widest relative z-10">{logo}</span>
+                      <div className="relative z-10 w-full h-full flex items-center justify-center p-3">
+                        <div className="relative w-full h-full">
+                          <Image
+                            src={logo.src}
+                            alt={logo.name}
+                            fill
+                            className="object-contain mix-blend-screen opacity-70 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-2xl"
+                            sizes="(max-width: 768px) 33vw, 20vw"
+                          />
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>

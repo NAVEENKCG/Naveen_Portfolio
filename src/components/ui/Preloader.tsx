@@ -21,34 +21,52 @@ export function Preloader() {
 
     document.body.style.overflow = 'hidden'
 
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setIsLoaded(true)
-        document.body.style.overflow = ''
-      },
-    })
-
-    // Phase 1: Count 0→100
-    tl.to(
-      { val: 0 },
-      {
-        val: 100,
-        duration: 1.6,
-        ease: 'power2.inOut',
-        onUpdate: function () {
-          counter.textContent = String(Math.floor(this.targets()[0].val)).padStart(2, '0')
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        onComplete: () => {
+          setIsLoaded(true)
+          document.body.style.overflow = ''
         },
-      }
-    )
-      // Phase 2: Fade counter, show name
-      .to(counter, { opacity: 0, duration: 0.3 })
-      .fromTo(name, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 })
-      // Phase 3: Split name
-      .to(first, { y: '-110%', duration: 0.6, ease: 'power3.inOut' }, '+=0.4')
-      .to(last, { y: '110%', duration: 0.6, ease: 'power3.inOut' }, '<')
-      // Phase 4: Remove preloader
-      .to(container, { opacity: 0, duration: 0.3 })
-      .set(container, { display: 'none' })
+      })
+
+      const counterObj = { val: 0 }
+
+      // Phase 1: Count 0→100
+      tl.to(
+        counterObj,
+        {
+          val: 100,
+          duration: 1.6,
+          ease: 'power2.inOut',
+          onUpdate: () => {
+            if (counter) {
+              counter.textContent = String(Math.floor(counterObj.val)).padStart(2, '0')
+            }
+          },
+        }
+      )
+        // Phase 2: Fade counter, show name
+        .to(counter, { opacity: 0, duration: 0.3 })
+        .fromTo(name, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 })
+        // Phase 3: Split name
+        .to(first, { y: '-110%', duration: 0.6, ease: 'power3.inOut' }, '+=0.4')
+        .to(last, { y: '110%', duration: 0.6, ease: 'power3.inOut' }, '<')
+        // Phase 4: Remove preloader
+        .to(container, { opacity: 0, duration: 0.3 })
+        .set(container, { display: 'none' })
+    }, containerRef)
+
+    // Fallback: If animation fails to complete, force unlock after 4s
+    const fallbackTimer = setTimeout(() => {
+      setIsLoaded(true)
+      document.body.style.overflow = ''
+    }, 4000)
+
+    return () => {
+      clearTimeout(fallbackTimer)
+      ctx.revert()
+      document.body.style.overflow = ''
+    }
   }, [])
 
   if (isLoaded) return null
